@@ -2,7 +2,9 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import './admin.css'
 
-const API_URL = 'http://localhost:3001/api'
+// Relative by default so the Vite dev proxy (and any production reverse proxy)
+// handles it; override with VITE_API_URL when the API lives elsewhere.
+const API_URL = import.meta.env.VITE_API_URL || '/api'
 
 // Helper function to convert Google Drive link to direct image URL
 const convertGoogleDriveLink = (url) => {
@@ -52,7 +54,7 @@ function Login({ onLogin }) {
 
       const text = await res.text()
       if (!text) {
-        throw new Error('Server returned empty response. Make sure the backend is running on port 3001.')
+        throw new Error('Server returned an empty response. Make sure the backend is running (npm run dev:server).')
       }
 
       let data
@@ -70,7 +72,7 @@ function Login({ onLogin }) {
       onLogin(data.token)
     } catch (err) {
       if (err.message.includes('Failed to fetch')) {
-        setError('Cannot connect to server. Make sure the backend is running: cd server && node index.js')
+        setError('Cannot connect to the server. Start the backend with: npm run dev:server')
       } else {
         setError(err.message)
       }
@@ -87,8 +89,8 @@ function Login({ onLogin }) {
         animate={{ opacity: 1, y: 0 }}
       >
         <div className="admin-login__header">
-          <img src="/camlogo.png" alt="Fused Lens Studio" className="admin-login__icon" />
-          <h1>Fused Lens Studio</h1>
+          <img src="/gopal-logo.svg" alt="Gopal Tent House" className="admin-login__icon" />
+          <h1>Gopal Tent House</h1>
           <p>Admin Panel</p>
         </div>
 
@@ -129,53 +131,109 @@ function Login({ onLogin }) {
 }
 
 // Overview Component
-function Overview({ data }) {
+function Overview({ data, onOpenTab }) {
+  const enquiries = data.enquiries || []
+  const newEnquiries = enquiries.filter(e => e.status === 'new')
+  const confirmed = enquiries.filter(e => e.status === 'confirmed')
+
+  // Upcoming = confirmed bookings whose event date has not passed yet.
+  const startOfToday = new Date()
+  startOfToday.setHours(0, 0, 0, 0)
+  const upcoming = confirmed
+    .filter(e => e.eventDate && new Date(e.eventDate) >= startOfToday)
+    .sort((a, b) => new Date(a.eventDate) - new Date(b.eventDate))
+
   return (
     <div className="admin-overview">
       <div className="admin-stats-grid">
+        <div className="admin-stat-card admin-stat-card--highlight">
+          <h3>{newEnquiries.length}</h3>
+          <p>New Enquiries</p>
+        </div>
+        <div className="admin-stat-card">
+          <h3>{upcoming.length}</h3>
+          <p>Upcoming Bookings</p>
+        </div>
+        <div className="admin-stat-card">
+          <h3>{enquiries.length}</h3>
+          <p>Enquiries (All Time)</p>
+        </div>
         <div className="admin-stat-card">
           <h3>{data.contacts?.length || 0}</h3>
           <p>Contact Messages</p>
         </div>
         <div className="admin-stat-card">
-          <h3>{data.comments?.length || 0}</h3>
-          <p>Photo Comments</p>
+          <h3>{data.content?.venues?.length || 0}</h3>
+          <p>Venues</p>
         </div>
         <div className="admin-stat-card">
           <h3>{data.photos?.photos?.length || 0}</h3>
-          <p>Portfolio Photos</p>
+          <p>Gallery Photos</p>
         </div>
-        <div className="admin-stat-card">
-          <h3>{data.testimonials?.length || 0}</h3>
-          <p>Testimonials</p>
+      </div>
+
+      {newEnquiries.length > 0 && (
+        <div className="admin-callout">
+          <span>
+            {newEnquiries.length} {newEnquiries.length === 1 ? 'family is' : 'families are'} waiting
+            for a callback.
+          </span>
+          <button
+            type="button"
+            className="admin-btn admin-btn--primary admin-btn--small"
+            onClick={() => onOpenTab?.('enquiries')}
+          >
+            Open Enquiries
+          </button>
         </div>
-        <div className="admin-stat-card">
-          <h3>{data.collaborators?.length || 0}</h3>
-          <p>Team Members</p>
-        </div>
-        <div className="admin-stat-card">
-          <h3>{data.content?.services?.length || 0}</h3>
-          <p>Services</p>
+      )}
+
+      <div className="admin-recent-activity">
+        <h2>Next Confirmed Bookings</h2>
+        <div className="admin-activity-list">
+          {upcoming.length === 0 ? (
+            <div className="admin-activity-item">
+              <span>No confirmed bookings on the calendar yet.</span>
+            </div>
+          ) : (
+            upcoming.slice(0, 5).map(enquiry => (
+              <div key={enquiry.id} className="admin-activity-item">
+                <span>
+                  {enquiry.name} · {enquiry.eventType || 'Event'}
+                  {enquiry.guests ? ` · ${enquiry.guests} guests` : ''}
+                </span>
+                <time>{new Date(enquiry.eventDate).toLocaleDateString()}</time>
+              </div>
+            ))
+          )}
         </div>
       </div>
 
       <div className="admin-recent-activity">
-        <h2>Recent Activity</h2>
+        <h2>Latest Enquiries</h2>
         <div className="admin-activity-list">
-          {data.contacts?.slice(0, 5).map(contact => (
-            <div key={contact.id} className="admin-activity-item">
-              <span>New contact from {contact.name}</span>
-              <time>{new Date(contact.submittedAt).toLocaleDateString()}</time>
+          {enquiries.length === 0 ? (
+            <div className="admin-activity-item">
+              <span>No enquiries yet.</span>
             </div>
-          ))}
+          ) : (
+            enquiries.slice(0, 5).map(enquiry => (
+              <div key={enquiry.id} className="admin-activity-item">
+                <span>
+                  {enquiry.name} · {enquiry.phone}
+                </span>
+                <time>{new Date(enquiry.submittedAt).toLocaleDateString()}</time>
+              </div>
+            ))
+          )}
         </div>
       </div>
     </div>
   )
 }
 
-// Studio Editor Component
-function StudioEditor({ data, onSave, saving }) {
+// Venue Editor Component
+function VenueEditor({ data, onSave, saving }) {
   const [formData, setFormData] = useState(data || {})
 
   useEffect(() => {
@@ -191,14 +249,14 @@ function StudioEditor({ data, onSave, saving }) {
     <div className="admin-section">
       <div className="admin-section__header">
         <div>
-          <h2>Studio Information</h2>
-          <p>Update your studio details and contact information</p>
+          <h2>Venue Information</h2>
+          <p>Business name, tagline and contact details shown across the site</p>
         </div>
       </div>
       <form onSubmit={handleSubmit}>
         <div className="admin-grid">
         <div className="admin-input-group">
-          <label>Studio Name</label>
+          <label>Business Name</label>
           <input
             type="text"
             value={formData.name || ''}
@@ -935,14 +993,16 @@ function PhotosEditor({ data, onSave, saving }) {
             <div key={photo.id} className="admin-photo-item">
               <div className="admin-photo-item__preview">
                 {photo.src ? (
-                  <img src={photo.src} alt={photo.title || 'Photo'} onError={(e) => {
-                    e.target.style.display = 'none'
-                    e.target.nextSibling.style.display = 'flex'
-                  }} />
-                  <div className="admin-photo-item__error" style={{ display: 'none' }}>
-                    <span>⚠️</span>
-                    <p>Image failed to load</p>
-                  </div>
+                  <>
+                    <img src={photo.src} alt={photo.title || 'Photo'} onError={(e) => {
+                      e.target.style.display = 'none'
+                      e.target.nextSibling.style.display = 'flex'
+                    }} />
+                    <div className="admin-photo-item__error" style={{ display: 'none' }}>
+                      <span>⚠️</span>
+                      <p>Image failed to load</p>
+                    </div>
+                  </>
                 ) : (
                   <div className="admin-photo-item__placeholder">
                     <span>📷</span>
@@ -1086,7 +1146,558 @@ function SocialEditor({ data, onSave, saving }) {
 
 // Contact Editor Component
 function ContactEditor({ data, onSave, saving }) {
-  return <StudioEditor data={data} onSave={onSave} saving={saving} />
+  return <VenueEditor data={data} onSave={onSave} saving={saving} />
+}
+
+// Turns a name into a stable, URL-safe id for new venues and packages.
+const slugify = (value, fallback) =>
+  (value || '')
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '') || fallback
+
+// Multi-line textarea <-> array of strings, used for amenities and features.
+const linesToArray = (text) =>
+  text.split('\n').map(line => line.trim()).filter(Boolean)
+
+// Venues Editor Component
+function VenuesEditor({ data, onSave, saving }) {
+  const [venues, setVenues] = useState(data || [])
+
+  useEffect(() => {
+    setVenues(data || [])
+  }, [data])
+
+  const addVenue = () => {
+    setVenues(prev => [...prev, {
+      id: `venue-${Date.now()}`,
+      name: '',
+      type: '',
+      capacity: 100,
+      area: '',
+      price: 0,
+      description: '',
+      image: '',
+      amenities: []
+    }])
+  }
+
+  const updateVenue = (index, field, value) => {
+    setVenues(prev => prev.map((venue, i) =>
+      i === index ? { ...venue, [field]: value } : venue
+    ))
+  }
+
+  const removeVenue = (index) => {
+    if (!confirm('Remove this venue? It will disappear from the website and the booking form.')) return
+    setVenues(prev => prev.filter((_, i) => i !== index))
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    // Fill in any missing ids so the booking form always has something to store.
+    onSave(venues.map((venue, i) => ({
+      ...venue,
+      id: venue.id || slugify(venue.name, `venue-${i + 1}`),
+      capacity: Number(venue.capacity) || 0,
+      price: Number(venue.price) || 0
+    })))
+  }
+
+  return (
+    <div className="admin-section">
+      <div className="admin-section__header">
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div>
+            <h2>Venues</h2>
+            <p>The spaces families can book. These also fill the booking form's venue list.</p>
+          </div>
+          <button type="button" className="admin-btn admin-btn--secondary" onClick={addVenue}>
+            + Add Venue
+          </button>
+        </div>
+      </div>
+
+      <form onSubmit={handleSubmit}>
+        {venues.length === 0 && (
+          <div className="admin-empty">
+            <span>🎪</span>
+            <p>No venues yet. Click "Add Venue" to create one.</p>
+          </div>
+        )}
+
+        {venues.map((venue, index) => (
+          <div key={venue.id || index} className="admin-card">
+            <div className="admin-card__header">
+              <h4>{venue.name || `Venue ${index + 1}`}</h4>
+              <button
+                type="button"
+                className="admin-btn admin-btn--danger admin-btn--small"
+                onClick={() => removeVenue(index)}
+              >
+                Remove
+              </button>
+            </div>
+
+            <div className="admin-grid">
+              <div className="admin-input-group">
+                <label>Venue Name</label>
+                <input
+                  type="text"
+                  value={venue.name || ''}
+                  onChange={(e) => updateVenue(index, 'name', e.target.value)}
+                  placeholder="e.g. Gopal Grand Lawn"
+                  required
+                />
+              </div>
+
+              <div className="admin-input-group">
+                <label>Type</label>
+                <input
+                  type="text"
+                  value={venue.type || ''}
+                  onChange={(e) => updateVenue(index, 'type', e.target.value)}
+                  placeholder="e.g. Open-Air Lawn"
+                />
+              </div>
+
+              <div className="admin-input-group">
+                <label>Guest Capacity</label>
+                <input
+                  type="number"
+                  min="1"
+                  value={venue.capacity ?? ''}
+                  onChange={(e) => updateVenue(index, 'capacity', e.target.value)}
+                />
+              </div>
+
+              <div className="admin-input-group">
+                <label>Area</label>
+                <input
+                  type="text"
+                  value={venue.area || ''}
+                  onChange={(e) => updateVenue(index, 'area', e.target.value)}
+                  placeholder="e.g. 25,000 sq ft"
+                />
+              </div>
+
+              <div className="admin-input-group">
+                <label>Starting Price (₹ per day)</label>
+                <input
+                  type="number"
+                  min="0"
+                  value={venue.price ?? ''}
+                  onChange={(e) => updateVenue(index, 'price', e.target.value)}
+                />
+              </div>
+
+              <div className="admin-input-group">
+                <label>Photo URL</label>
+                <input
+                  type="text"
+                  value={venue.image || ''}
+                  onChange={(e) => updateVenue(index, 'image', convertGoogleDriveLink(e.target.value))}
+                  placeholder="https://…"
+                />
+              </div>
+
+              <div className="admin-input-group admin-input-group--full">
+                <label>Description</label>
+                <textarea
+                  value={venue.description || ''}
+                  onChange={(e) => updateVenue(index, 'description', e.target.value)}
+                  rows={3}
+                />
+              </div>
+
+              <div className="admin-input-group admin-input-group--full">
+                <label>Amenities (one per line)</label>
+                <textarea
+                  value={(venue.amenities || []).join('\n')}
+                  onChange={(e) => updateVenue(index, 'amenities', linesToArray(e.target.value))}
+                  rows={6}
+                  placeholder={'Valet parking for 250 cars\nBridal suite & green rooms\nPower backup'}
+                />
+              </div>
+            </div>
+          </div>
+        ))}
+
+        <div className="admin-actions">
+          <button type="submit" className="admin-btn admin-btn--primary" disabled={saving}>
+            {saving ? 'Saving...' : 'Save Venues'}
+          </button>
+        </div>
+      </form>
+    </div>
+  )
+}
+
+// Packages Editor Component
+function PackagesEditor({ data, onSave, saving }) {
+  const [packages, setPackages] = useState(data || [])
+
+  useEffect(() => {
+    setPackages(data || [])
+  }, [data])
+
+  const addPackage = () => {
+    setPackages(prev => [...prev, {
+      id: `package-${Date.now()}`,
+      name: '',
+      subtitle: '',
+      price: 0,
+      guests: '',
+      popular: false,
+      description: '',
+      features: []
+    }])
+  }
+
+  const updatePackage = (index, field, value) => {
+    setPackages(prev => prev.map((pkg, i) =>
+      i === index ? { ...pkg, [field]: value } : pkg
+    ))
+  }
+
+  // Only one package should carry the "Most Booked" ribbon.
+  const setPopular = (index, checked) => {
+    setPackages(prev => prev.map((pkg, i) => ({
+      ...pkg,
+      popular: checked ? i === index : i === index ? false : pkg.popular
+    })))
+  }
+
+  const removePackage = (index) => {
+    if (!confirm('Remove this package from the website?')) return
+    setPackages(prev => prev.filter((_, i) => i !== index))
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    onSave(packages.map((pkg, i) => ({
+      ...pkg,
+      id: pkg.id || slugify(pkg.name, `package-${i + 1}`),
+      price: Number(pkg.price) || 0
+    })))
+  }
+
+  return (
+    <div className="admin-section">
+      <div className="admin-section__header">
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div>
+            <h2>Packages</h2>
+            <p>All-inclusive pricing tiers shown on the Packages section</p>
+          </div>
+          <button type="button" className="admin-btn admin-btn--secondary" onClick={addPackage}>
+            + Add Package
+          </button>
+        </div>
+      </div>
+
+      <form onSubmit={handleSubmit}>
+        {packages.length === 0 && (
+          <div className="admin-empty">
+            <span>💐</span>
+            <p>No packages yet. Click "Add Package" to create one.</p>
+          </div>
+        )}
+
+        {packages.map((pkg, index) => (
+          <div key={pkg.id || index} className="admin-card">
+            <div className="admin-card__header">
+              <h4>{pkg.name || `Package ${index + 1}`}</h4>
+              <button
+                type="button"
+                className="admin-btn admin-btn--danger admin-btn--small"
+                onClick={() => removePackage(index)}
+              >
+                Remove
+              </button>
+            </div>
+
+            <div className="admin-grid">
+              <div className="admin-input-group">
+                <label>Package Name</label>
+                <input
+                  type="text"
+                  value={pkg.name || ''}
+                  onChange={(e) => updatePackage(index, 'name', e.target.value)}
+                  placeholder="e.g. Vivah"
+                  required
+                />
+              </div>
+
+              <div className="admin-input-group">
+                <label>Subtitle</label>
+                <input
+                  type="text"
+                  value={pkg.subtitle || ''}
+                  onChange={(e) => updatePackage(index, 'subtitle', e.target.value)}
+                  placeholder="e.g. The Classic Wedding"
+                />
+              </div>
+
+              <div className="admin-input-group">
+                <label>Starting Price (₹)</label>
+                <input
+                  type="number"
+                  min="0"
+                  value={pkg.price ?? ''}
+                  onChange={(e) => updatePackage(index, 'price', e.target.value)}
+                />
+              </div>
+
+              <div className="admin-input-group">
+                <label>Guest Range</label>
+                <input
+                  type="text"
+                  value={pkg.guests || ''}
+                  onChange={(e) => updatePackage(index, 'guests', e.target.value)}
+                  placeholder="e.g. Up to 500 guests"
+                />
+              </div>
+
+              <div className="admin-input-group admin-input-group--full">
+                <label>Description</label>
+                <textarea
+                  value={pkg.description || ''}
+                  onChange={(e) => updatePackage(index, 'description', e.target.value)}
+                  rows={2}
+                />
+              </div>
+
+              <div className="admin-input-group admin-input-group--full">
+                <label>What's Included (one per line)</label>
+                <textarea
+                  value={(pkg.features || []).join('\n')}
+                  onChange={(e) => updatePackage(index, 'features', linesToArray(e.target.value))}
+                  rows={8}
+                  placeholder={'Venue for full day\nCarved mandap with floral canopy\nValet parking'}
+                />
+              </div>
+
+              <div className="admin-input-group admin-input-group--full">
+                <label className="admin-checkbox">
+                  <input
+                    type="checkbox"
+                    checked={Boolean(pkg.popular)}
+                    onChange={(e) => setPopular(index, e.target.checked)}
+                  />
+                  Highlight as "Most Booked"
+                </label>
+              </div>
+            </div>
+          </div>
+        ))}
+
+        <div className="admin-actions">
+          <button type="submit" className="admin-btn admin-btn--primary" disabled={saving}>
+            {saving ? 'Saving...' : 'Save Packages'}
+          </button>
+        </div>
+      </form>
+    </div>
+  )
+}
+
+// Booking Enquiries Manager
+const ENQUIRY_STATUSES = [
+  { id: 'new', label: 'New' },
+  { id: 'contacted', label: 'Contacted' },
+  { id: 'confirmed', label: 'Confirmed' },
+  { id: 'declined', label: 'Declined' }
+]
+
+function EnquiriesManager({ data, venues, onUpdateStatus, onSaveNotes, onDelete }) {
+  const [filter, setFilter] = useState('all')
+  const [openId, setOpenId] = useState(null)
+  const [noteDrafts, setNoteDrafts] = useState({})
+
+  const enquiries = data || []
+  const visible = filter === 'all'
+    ? enquiries
+    : enquiries.filter(e => e.status === filter)
+
+  const venueName = (id) =>
+    venues?.find(v => v.id === id)?.name || (id ? id : 'No preference')
+
+  const counts = ENQUIRY_STATUSES.reduce((acc, status) => {
+    acc[status.id] = enquiries.filter(e => e.status === status.id).length
+    return acc
+  }, {})
+
+  return (
+    <div className="admin-section">
+      <div className="admin-section__header">
+        <div>
+          <h2>Booking Enquiries</h2>
+          <p>Callback requests from the website. Ring the family, then mark where it stands.</p>
+        </div>
+      </div>
+
+      <div className="admin-filters">
+        <button
+          type="button"
+          className={`admin-filter ${filter === 'all' ? 'admin-filter--active' : ''}`}
+          onClick={() => setFilter('all')}
+        >
+          All ({enquiries.length})
+        </button>
+        {ENQUIRY_STATUSES.map(status => (
+          <button
+            key={status.id}
+            type="button"
+            className={`admin-filter ${filter === status.id ? 'admin-filter--active' : ''}`}
+            onClick={() => setFilter(status.id)}
+          >
+            {status.label} ({counts[status.id] || 0})
+          </button>
+        ))}
+      </div>
+
+      {visible.length === 0 ? (
+        <div className="admin-empty">
+          <span>📅</span>
+          <p>{filter === 'all' ? 'No enquiries yet.' : `No ${filter} enquiries.`}</p>
+        </div>
+      ) : (
+        <div className="admin-enquiries">
+          {visible.map(enquiry => {
+            const isOpen = openId === enquiry.id
+            return (
+              <div
+                key={enquiry.id}
+                className={`admin-enquiry admin-enquiry--${enquiry.status}`}
+              >
+                <button
+                  type="button"
+                  className="admin-enquiry__summary"
+                  onClick={() => setOpenId(isOpen ? null : enquiry.id)}
+                >
+                  <span className={`admin-status admin-status--${enquiry.status}`}>
+                    {enquiry.status}
+                  </span>
+                  <span className="admin-enquiry__name">{enquiry.name}</span>
+                  <span className="admin-enquiry__date">
+                    {enquiry.eventDate
+                      ? new Date(enquiry.eventDate).toLocaleDateString(undefined, {
+                          day: 'numeric', month: 'short', year: 'numeric'
+                        })
+                      : 'No date'}
+                  </span>
+                  <span className="admin-enquiry__phone">{enquiry.phone}</span>
+                  <span className="admin-enquiry__chevron">{isOpen ? '−' : '+'}</span>
+                </button>
+
+                {isOpen && (
+                  <div className="admin-enquiry__detail">
+                    <dl className="admin-enquiry__facts">
+                      <div>
+                        <dt>Occasion</dt>
+                        <dd>{enquiry.eventType || '—'}</dd>
+                      </div>
+                      <div>
+                        <dt>Venue</dt>
+                        <dd>{venueName(enquiry.venueId)}</dd>
+                      </div>
+                      <div>
+                        <dt>Slot</dt>
+                        <dd>{enquiry.timeSlot || '—'}</dd>
+                      </div>
+                      <div>
+                        <dt>Guests</dt>
+                        <dd>{enquiry.guests ?? '—'}</dd>
+                      </div>
+                      <div>
+                        <dt>Email</dt>
+                        <dd>{enquiry.email || '—'}</dd>
+                      </div>
+                      <div>
+                        <dt>Received</dt>
+                        <dd>{new Date(enquiry.submittedAt).toLocaleString()}</dd>
+                      </div>
+                    </dl>
+
+                    {enquiry.message && (
+                      <div className="admin-enquiry__message">
+                        <strong>Their message</strong>
+                        <p>{enquiry.message}</p>
+                      </div>
+                    )}
+
+                    <div className="admin-input-group admin-input-group--full">
+                      <label>Internal notes</label>
+                      <textarea
+                        rows={3}
+                        value={noteDrafts[enquiry.id] ?? enquiry.notes ?? ''}
+                        onChange={(e) =>
+                          setNoteDrafts(prev => ({ ...prev, [enquiry.id]: e.target.value }))
+                        }
+                        placeholder="Quoted ₹3.5L for the lawn, calling back Tuesday…"
+                      />
+                    </div>
+
+                    <div className="admin-enquiry__actions">
+                      <a
+                        className="admin-btn admin-btn--secondary admin-btn--small"
+                        href={`tel:${enquiry.phone.replace(/[^\d+]/g, '')}`}
+                      >
+                        Call
+                      </a>
+                      <a
+                        className="admin-btn admin-btn--secondary admin-btn--small"
+                        href={`https://wa.me/${enquiry.phone.replace(/[^\d]/g, '')}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        WhatsApp
+                      </a>
+
+                      <select
+                        className="admin-enquiry__status-select"
+                        value={enquiry.status}
+                        onChange={(e) => onUpdateStatus(enquiry.id, e.target.value)}
+                      >
+                        {ENQUIRY_STATUSES.map(status => (
+                          <option key={status.id} value={status.id}>{status.label}</option>
+                        ))}
+                      </select>
+
+                      <button
+                        type="button"
+                        className="admin-btn admin-btn--primary admin-btn--small"
+                        onClick={() => {
+                          onSaveNotes(enquiry.id, noteDrafts[enquiry.id] ?? enquiry.notes ?? '')
+                          setNoteDrafts(prev => {
+                            const next = { ...prev }
+                            delete next[enquiry.id]
+                            return next
+                          })
+                        }}
+                      >
+                        Save Notes
+                      </button>
+
+                      <button
+                        type="button"
+                        className="admin-btn admin-btn--danger admin-btn--small"
+                        onClick={() => onDelete(enquiry.id)}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )
+          })}
+        </div>
+      )}
+    </div>
+  )
 }
 
 // Messages Viewer Component
@@ -1226,7 +1837,8 @@ function Dashboard({ token, onLogout }) {
         testimonialsRes,
         collaboratorsRes,
         aboutRes,
-        commentsRes
+        commentsRes,
+        enquiriesRes
       ] = await Promise.all([
         fetch(`${API_URL}/content`),
         fetch(`${API_URL}/photos`),
@@ -1234,7 +1846,8 @@ function Dashboard({ token, onLogout }) {
         fetch(`${API_URL}/content/testimonials`),
         fetch(`${API_URL}/content/collaborators`),
         fetch(`${API_URL}/content/about`),
-        fetch(`${API_URL}/comments`, { headers: authHeaders })
+        fetch(`${API_URL}/comments`, { headers: authHeaders }),
+        fetch(`${API_URL}/enquiries`, { headers: authHeaders })
       ])
 
       const newData = {}
@@ -1246,6 +1859,7 @@ function Dashboard({ token, onLogout }) {
       if (collaboratorsRes.ok) newData.collaborators = await collaboratorsRes.json()
       if (aboutRes.ok) newData.about = await aboutRes.json()
       if (commentsRes.ok) newData.comments = await commentsRes.json()
+      if (enquiriesRes.ok) newData.enquiries = await enquiriesRes.json()
 
       setData(newData)
     } catch (error) {
@@ -1318,15 +1932,62 @@ function Dashboard({ token, onLogout }) {
     }
   }
 
+  const updateEnquiry = async (enquiryId, body, successText) => {
+    try {
+      const res = await fetch(`${API_URL}/enquiries/${enquiryId}`, {
+        method: 'PUT',
+        headers: authHeaders,
+        body: JSON.stringify(body)
+      })
+      if (res.ok) {
+        showMessage(successText)
+        loadAllData()
+      } else {
+        showMessage('Failed to update enquiry', 'error')
+      }
+    } catch (error) {
+      showMessage('Failed to update enquiry', 'error')
+    }
+  }
+
+  const handleEnquiryStatus = (enquiryId, status) =>
+    updateEnquiry(enquiryId, { status }, `Enquiry marked as ${status}`)
+
+  const handleEnquiryNotes = (enquiryId, notes) =>
+    updateEnquiry(enquiryId, { notes }, 'Notes saved')
+
+  const handleDeleteEnquiry = async (enquiryId) => {
+    if (!confirm('Delete this enquiry? This cannot be undone.')) return
+    try {
+      const res = await fetch(`${API_URL}/enquiries/${enquiryId}`, {
+        method: 'DELETE',
+        headers: authHeaders
+      })
+      if (res.ok) {
+        showMessage('Enquiry deleted')
+        loadAllData()
+      } else {
+        showMessage('Failed to delete enquiry', 'error')
+      }
+    } catch (error) {
+      showMessage('Failed to delete enquiry', 'error')
+    }
+  }
+
+  const newEnquiryCount = (data.enquiries || []).filter(e => e.status === 'new').length
+
   const tabs = [
     { id: 'overview', label: 'Overview', icon: '📊' },
-    { id: 'studio', label: 'Studio Info', icon: '🏠' },
+    { id: 'enquiries', label: 'Enquiries', icon: '📅', badge: newEnquiryCount },
+    { id: 'venues', label: 'Venues', icon: '🎪' },
+    { id: 'packages', label: 'Packages', icon: '💐' },
+    { id: 'studio', label: 'Venue Info', icon: '🏠' },
     { id: 'hero', label: 'Hero Section', icon: '🎬' },
     { id: 'about', label: 'About Page', icon: '📖' },
     { id: 'services', label: 'Services', icon: '💼' },
-    { id: 'testimonials', label: 'Testimonials', icon: '💬' },
+    { id: 'testimonials', label: 'Reviews', icon: '💬' },
     { id: 'collaborators', label: 'Team', icon: '👥' },
-    { id: 'photos', label: 'Portfolio', icon: '📷' },
+    { id: 'photos', label: 'Gallery', icon: '📷' },
     { id: 'social', label: 'Social Links', icon: '🔗' },
     { id: 'contact', label: 'Contact Info', icon: '📞' },
     { id: 'messages', label: 'Messages', icon: '💌' },
@@ -1347,8 +2008,8 @@ function Dashboard({ token, onLogout }) {
       {/* Sidebar */}
       <aside className="admin-sidebar">
         <div className="admin-sidebar__header">
-          <img src="/camlogo.png" alt="Fused Lens Studio" className="admin-sidebar__icon" />
-          <span>Fused Lens</span>
+          <img src="/gopal-logo.svg" alt="Gopal Tent House" className="admin-sidebar__icon" />
+          <span>Gopal Tent House</span>
         </div>
 
         <nav className="admin-nav">
@@ -1360,6 +2021,7 @@ function Dashboard({ token, onLogout }) {
             >
               <span>{tab.icon}</span>
               {tab.label}
+              {tab.badge > 0 && <span className="admin-nav__badge">{tab.badge}</span>}
             </button>
           ))}
         </nav>
@@ -1391,13 +2053,42 @@ function Dashboard({ token, onLogout }) {
           </AnimatePresence>
 
           {/* Overview Tab */}
-          {activeTab === 'overview' && <Overview data={data} />}
+          {activeTab === 'overview' && <Overview data={data} onOpenTab={setActiveTab} />}
 
-          {/* Studio Info Tab */}
+          {/* Booking Enquiries Tab */}
+          {activeTab === 'enquiries' && (
+            <EnquiriesManager
+              data={data.enquiries || []}
+              venues={data.content?.venues || []}
+              onUpdateStatus={handleEnquiryStatus}
+              onSaveNotes={handleEnquiryNotes}
+              onDelete={handleDeleteEnquiry}
+            />
+          )}
+
+          {/* Venues Tab */}
+          {activeTab === 'venues' && data.content && (
+            <VenuesEditor
+              data={data.content.venues || []}
+              onSave={(venues) => saveSection('Venues', '/content/venues', { venues })}
+              saving={saving}
+            />
+          )}
+
+          {/* Packages Tab */}
+          {activeTab === 'packages' && data.content && (
+            <PackagesEditor
+              data={data.content.packages || []}
+              onSave={(packages) => saveSection('Packages', '/content/packages', { packages })}
+              saving={saving}
+            />
+          )}
+
+          {/* Venue Info Tab */}
           {activeTab === 'studio' && data.content && (
-            <StudioEditor
-              data={data.content.studio}
-              onSave={(studioData) => saveSection('Studio Info', '/content/studio', studioData)}
+            <VenueEditor
+              data={data.content.venue}
+              onSave={(venueData) => saveSection('Venue Info', '/content/venue', venueData)}
               saving={saving}
             />
           )}
@@ -1468,8 +2159,8 @@ function Dashboard({ token, onLogout }) {
           {/* Contact Info Tab */}
           {activeTab === 'contact' && data.content && (
             <ContactEditor
-              data={data.content.studio}
-              onSave={(studioData) => saveSection('Contact Info', '/content/studio', studioData)}
+              data={data.content.venue}
+              onSave={(venueData) => saveSection('Contact Info', '/content/venue', venueData)}
               saving={saving}
             />
           )}

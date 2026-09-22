@@ -2,13 +2,13 @@ import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { portfolioImages, categories } from '../../data/images'
+import { galleryImages, categories } from '../../data/images'
 import { Lightbox } from './Lightbox'
-import './Portfolio.css'
+import './Gallery.css'
 
 gsap.registerPlugin(ScrollTrigger)
 
-export function Portfolio() {
+export function Gallery() {
   const [activeCategory, setActiveCategory] = useState('all')
   const [selectedImage, setSelectedImage] = useState(null)
   const [hoveredId, setHoveredId] = useState(null)
@@ -17,8 +17,8 @@ export function Portfolio() {
   const itemRefs = useRef([])
 
   const filteredImages = activeCategory === 'all'
-    ? portfolioImages
-    : portfolioImages.filter(img => img.category === activeCategory)
+    ? galleryImages
+    : galleryImages.filter(img => img.category === activeCategory)
 
   // Scroll-triggered staggered animations
   useEffect(() => {
@@ -78,7 +78,7 @@ export function Portfolio() {
   }
 
   return (
-    <section id="portfolio" className="portfolio section" ref={sectionRef}>
+    <section id="gallery" className="gallery section" ref={sectionRef}>
       <div className="container">
         <motion.div
           className="section-heading"
@@ -87,16 +87,18 @@ export function Portfolio() {
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.8 }}
         >
-          <span className="section-label">Portfolio</span>
-          <h2 className="section-title">Selected Works</h2>
+          <span className="section-label">Gallery</span>
+          <h2 className="section-title">Weddings We Have Hosted</h2>
+          <div className="ornament"><span className="ornament__mark">❖</span></div>
           <p className="section-subtitle">
-            A curated collection of our finest photography, showcasing our passion for visual storytelling.
+            Real setups on our own grounds — mandaps, entrance gates, lighting and live counters,
+            photographed as the guests saw them.
           </p>
         </motion.div>
 
         {/* Category Filters */}
         <motion.div
-          className="portfolio__filters"
+          className="gallery__filters"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -105,7 +107,7 @@ export function Portfolio() {
           {categories.map((category) => (
             <motion.button
               key={category.id}
-              className={`portfolio__filter ${activeCategory === category.id ? 'portfolio__filter--active' : ''}`}
+              className={`gallery__filter ${activeCategory === category.id ? 'gallery__filter--active' : ''}`}
               onClick={() => setActiveCategory(category.id)}
               whileHover={{ y: -2 }}
               whileTap={{ scale: 0.95 }}
@@ -113,7 +115,7 @@ export function Portfolio() {
               {category.label}
               {activeCategory === category.id && (
                 <motion.span
-                  className="portfolio__filter-line"
+                  className="gallery__filter-line"
                   layoutId="filterLine"
                   transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                 />
@@ -123,13 +125,13 @@ export function Portfolio() {
         </motion.div>
 
         {/* Masonry Grid */}
-        <div className="portfolio__grid" ref={gridRef}>
+        <div className="gallery__grid" ref={gridRef}>
           <AnimatePresence mode="popLayout">
             {filteredImages.map((image, index) => (
               <motion.article
                 key={image.id}
                 ref={(el) => (itemRefs.current[index] = el)}
-                className={`portfolio__item portfolio__item--${image.aspect}`}
+                className={`gallery__item gallery__item--${image.aspect}`}
                 layout
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -141,23 +143,23 @@ export function Portfolio() {
                 onClick={() => setSelectedImage(image)}
                 style={{ transformStyle: 'preserve-3d' }}
               >
-                <div className="portfolio__item-inner">
+                <div className="gallery__item-inner">
                   <img
                     src={image.src}
                     alt={image.title}
-                    className="portfolio__image"
+                    className="gallery__image"
                     loading="lazy"
                   />
                   
                   {/* Hover Overlay */}
                   <motion.div
-                    className="portfolio__overlay"
+                    className="gallery__overlay"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: hoveredId === image.id ? 1 : 0 }}
                     transition={{ duration: 0.3 }}
                   >
                     <motion.div
-                      className="portfolio__info"
+                      className="gallery__info"
                       initial={{ y: 20, opacity: 0 }}
                       animate={{ 
                         y: hoveredId === image.id ? 0 : 20, 
@@ -165,15 +167,15 @@ export function Portfolio() {
                       }}
                       transition={{ duration: 0.3, delay: 0.1 }}
                     >
-                      <span className="portfolio__category">{image.category}</span>
-                      <h3 className="portfolio__title">{image.title}</h3>
-                      <span className="portfolio__view">View Project →</span>
+                      <span className="gallery__category">{image.category}</span>
+                      <h3 className="gallery__title">{image.title}</h3>
+                      <span className="gallery__view">View Photo →</span>
                     </motion.div>
                   </motion.div>
 
                   {/* Shine effect */}
                   <motion.div
-                    className="portfolio__shine"
+                    className="gallery__shine"
                     initial={{ opacity: 0, x: '-100%' }}
                     animate={{ 
                       opacity: hoveredId === image.id ? 0.15 : 0,

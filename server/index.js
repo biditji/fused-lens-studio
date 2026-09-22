@@ -5,6 +5,9 @@ import { dirname, join } from 'path'
 import authRoutes from './routes/auth.js'
 import contentRoutes from './routes/content.js'
 import photoRoutes from './routes/photos.js'
+import contactRoutes from './routes/contact.js'
+import commentRoutes from './routes/comments.js'
+import enquiryRoutes from './routes/enquiries.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
@@ -21,13 +24,15 @@ app.use('/uploads', express.static(join(__dirname, 'uploads')))
 app.use('/api/auth', authRoutes)
 app.use('/api/content', contentRoutes)
 app.use('/api/photos', photoRoutes)
+app.use('/api/contact', contactRoutes)
+app.use('/api/comments', commentRoutes)
+app.use('/api/enquiries', enquiryRoutes)
 
 // Health check
 app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok', message: 'Fused Lens API is running' })
+  res.json({ status: 'ok', message: 'Gopal Tent House API is running' })
 })
 
 app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`)
+  console.log(`🎪 Gopal Tent House server running on http://localhost:${PORT}`)
 })
-

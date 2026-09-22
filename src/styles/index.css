@@ -1,28 +1,34 @@
 /* ========================================
-   LUMIÈRE STUDIO - Global Styles
-   Premium Photography Studio Website
+   GOPAL TENT HOUSE - Global Styles
+   Wedding Venue & Tent House Website
    ======================================== */
 
 :root {
-  /* Colors - Refined neutral palette with warm undertones */
-  --color-black: #0a0a0a;
-  --color-charcoal: #1a1a1a;
-  --color-graphite: #2d2d2d;
-  --color-slate: #404040;
-  --color-ash: #6b6b6b;
-  --color-silver: #9a9a9a;
-  --color-pearl: #c4c4c4;
-  --color-cream: #f5f3f0;
-  --color-white: #fafafa;
-  
-  /* Accent - Warm champagne gold */
-  --color-accent: #c9a962;
-  --color-accent-light: #dfc88a;
-  --color-accent-dark: #a68b4b;
-  
+  /* Colors - Warm wedding palette: deep wine base, marigold gold accent */
+  --color-black: #140a0e;
+  --color-charcoal: #24131a;
+  --color-graphite: #3a2028;
+  --color-slate: #4a3038;
+  --color-ash: #756169;
+  --color-silver: #a2949a;
+  --color-pearl: #cdc2c6;
+  --color-cream: #faf4ea;
+  --color-white: #fffcf7;
+
+  /* Brand - Maroon & marigold */
+  --color-maroon: #6d1b32;
+  --color-maroon-light: #8d2742;
+  --color-marigold: #e8a033;
+
+  /* Accent - Antique gold */
+  --color-accent: #c79437;
+  --color-accent-light: #e2b862;
+  --color-accent-dark: #9d7327;
+
   /* Functional colors */
-  --color-success: #4a9d6e;
-  --color-error: #c75a5a;
+  --color-success: #3f8f63;
+  --color-error: #c2413f;
+  --color-warning: #d18b22;
   
   /* Typography */
   --font-display: 'Cormorant Garamond', Georgia, serif;
@@ -54,7 +60,7 @@
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
   --shadow-md: 0 4px 24px rgba(0, 0, 0, 0.08);
   --shadow-lg: 0 12px 48px rgba(0, 0, 0, 0.12);
-  --shadow-glow: 0 0 40px rgba(201, 169, 98, 0.15);
+  --shadow-glow: 0 0 40px rgba(199, 148, 55, 0.18);
 }
 
 /* Reset & Base */
@@ -69,6 +75,8 @@ html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Set on both html and body — on body alone some browsers still scroll. */
+  overflow-x: hidden;
 }
 
 body {
@@ -78,6 +86,7 @@ body {
   color: var(--color-charcoal);
   background: var(--color-white);
   overflow-x: hidden;
+  width: 100%;
 }
 
 /* Smooth scroll container */
@@ -140,10 +149,17 @@ a {
   text-decoration: none;
 }
 
-img {
+img,
+svg,
+video,
+iframe {
   max-width: 100%;
-  height: auto;
   display: block;
+}
+
+img,
+video {
+  height: auto;
 }
 
 button {
@@ -151,6 +167,27 @@ button {
   cursor: pointer;
   border: none;
   background: none;
+  max-width: 100%;
+}
+
+/* Keep long unbroken strings (emails, URLs, phone numbers) inside their box
+   instead of pushing the page sideways on narrow screens. */
+p, li, h1, h2, h3, h4, h5, h6, a, span, dd, label, blockquote {
+  overflow-wrap: break-word;
+}
+
+/* Form controls have an intrinsic minimum width — date inputs especially —
+   which makes them overflow grid and flex tracks unless this is reset. */
+input,
+select,
+textarea {
+  min-width: 0;
+  max-width: 100%;
+  font-family: inherit;
+}
+
+textarea {
+  resize: vertical;
 }
 
 /* Container */
@@ -262,6 +299,59 @@ button {
   color: var(--color-accent);
 }
 
+/* Ornamental divider used under section headings */
+.ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  margin: var(--space-md) auto 0;
+  color: var(--color-accent);
+}
+
+.ornament::before,
+.ornament::after {
+  content: '';
+  width: clamp(40px, 8vw, 80px);
+  height: 1px;
+  background: linear-gradient(to right, transparent, currentColor);
+}
+
+.ornament::after {
+  background: linear-gradient(to left, transparent, currentColor);
+}
+
+.ornament__mark {
+  font-size: 0.75rem;
+  line-height: 1;
+}
+
+/* Status pills shared by venue cards and the enquiry form */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0.35em 0.85em;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.pill--gold {
+  background: rgba(199, 148, 55, 0.14);
+  color: var(--color-accent-dark);
+  border: 1px solid rgba(199, 148, 55, 0.35);
+}
+
+.pill--maroon {
+  background: rgba(109, 27, 50, 0.1);
+  color: var(--color-maroon);
+  border: 1px solid rgba(109, 27, 50, 0.25);
+}
+
 /* Dark section variant */
 .section--dark {
   background: var(--color-charcoal);
@@ -321,9 +411,30 @@ button {
   :root {
     --header-height: 70px;
   }
-  
+
   .section {
     padding: var(--space-2xl) 0;
   }
+}
+
+/* Narrow phones: tighten the gutter so content keeps its width, and make sure
+   nothing in a section can push the page into a horizontal scroll. */
+@media (max-width: 420px) {
+  :root {
+    --container-padding: 1rem;
+  }
+
+  .section {
+    padding: var(--space-xl) 0;
+  }
+}
+
+/* Page-level guard. Sections are not clipped individually so card hover
+   transforms and the sticky booking panel keep working. */
+.app,
+main,
+.section,
+.container {
+  max-width: 100%;
 }
 

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useScrollProgress } from '../../hooks'
-import { navLinks, studioInfo } from '../../data/content'
+import { navLinks, venueInfo } from '../../data/content'
 import './Navigation.css'
 
 export function Navigation() {
@@ -77,11 +77,11 @@ export function Navigation() {
             whileTap={{ scale: 0.98 }}
           >
             <img 
-              src="/camlogo.png" 
-              alt={studioInfo.name}
+              src="/gopal-logo.svg" 
+              alt={venueInfo.name}
               className="nav__logo-image"
             />
-            <span className="nav__logo-text">{studioInfo.name}</span>
+            <span className="nav__logo-text">{venueInfo.name}</span>
           </motion.a>
 
           <nav className="nav__links">
@@ -115,9 +115,9 @@ export function Navigation() {
             className="nav__cta clickable"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            onClick={() => scrollToSection('contact')}
+            onClick={() => scrollToSection('booking')}
           >
-            Book Session
+            Check Availability
           </motion.button>
 
           <button
@@ -175,8 +175,15 @@ export function Navigation() {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
             >
-              <p>{studioInfo.email}</p>
-              <p>{studioInfo.phone}</p>
+              {/* Booking happens over the phone, so make calling a one-tap action. */}
+              <a
+                href={`tel:${venueInfo.phone.replace(/[^\d+]/g, '')}`}
+                className="mobile-menu__call clickable"
+              >
+                Call {venueInfo.phone}
+              </a>
+              <p>{venueInfo.email}</p>
+              <p>{venueInfo.address}</p>
             </motion.div>
           </motion.div>
         )}

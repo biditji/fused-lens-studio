@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { aboutImage } from '../../data/images'
-import { studioInfo, timeline, stats } from '../../data/content'
+import { venueInfo, timeline, stats } from '../../data/content'
 import { AnimatedCounter } from '../Effects'
 import './About.css'
 
@@ -106,7 +106,7 @@ export function About() {
               <div className="about__image-inner" ref={imageRef}>
                 <img
                   src={aboutImage}
-                  alt="Photography studio"
+                  alt="Shamiana canopy at Gopal Tent House"
                   className="about__image"
                 />
               </div>
@@ -119,8 +119,8 @@ export function About() {
                 viewport={{ once: true }}
                 transition={{ delay: 0.5, duration: 0.6 }}
               >
-                <span className="about__badge-number">{new Date().getFullYear() - studioInfo.founded}+</span>
-                <span className="about__badge-text">Years of Excellence</span>
+                <span className="about__badge-number">{new Date().getFullYear() - venueInfo.founded}+</span>
+                <span className="about__badge-text">Years of Weddings</span>
               </motion.div>
             </motion.div>
           </div>
@@ -134,15 +134,15 @@ export function About() {
             viewport={{ once: true, margin: '-100px' }}
           >
             <motion.span className="section-label" variants={itemVariants}>
-              About Us
+              About the Tent House
             </motion.span>
             
             <motion.h2 className="about__title" variants={itemVariants}>
-              {about?.title || 'Crafting Visual Masterpieces'}
+              {about?.title || 'Three Generations of Weddings'}
             </motion.h2>
             
             <motion.p className="about__lead" variants={itemVariants}>
-              {about?.content || `At ${studioInfo.name}, we believe every photograph should tell a story that resonates deeply with those who view it.`}
+              {about?.content || `${venueInfo.name} has been raising tents and lighting lawns for the families of ${venueInfo.location} since ${venueInfo.founded}.`}
             </motion.p>
             
             <motion.p className="about__text" variants={itemVariants}>
@@ -172,7 +172,7 @@ export function About() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            Our Journey
+            Our Story
           </motion.h3>
           
           <div className="timeline">

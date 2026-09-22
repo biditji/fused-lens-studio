@@ -5,9 +5,12 @@ import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
 import {
   Navigation,
   Hero,
-  Portfolio,
-  About,
+  Venues,
+  Gallery,
   Services,
+  Packages,
+  Booking,
+  About,
   Contact,
   Footer,
   FloatingParticles,
@@ -53,9 +56,12 @@ function App() {
       
       <main>
         <Hero />
-        <Portfolio />
-        <About />
+        <Venues />
+        <Gallery />
         <Services />
+        <Packages />
+        <About />
+        <Booking />
         <Contact />
       </main>
       

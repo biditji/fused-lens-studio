@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import gsap from 'gsap'
 import { heroSlides } from '../../data/images'
-import { studioInfo } from '../../data/content'
+import { venueInfo } from '../../data/content'
 import './Hero.css'
 
 export function Hero() {
@@ -71,11 +71,8 @@ export function Hero() {
     loadImages()
   }, [])
 
-  const scrollToPortfolio = () => {
-    const portfolio = document.getElementById('portfolio')
-    if (portfolio) {
-      portfolio.scrollIntoView({ behavior: 'smooth' })
-    }
+  const scrollTo = (sectionId) => {
+    document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' })
   }
 
   return (
@@ -125,7 +122,7 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 0.6 }}
           >
             <span className="hero__studio-icon">◈</span>
-            {studioInfo.name}
+            {venueInfo.name}
           </motion.div> */}
 
           {/* Animated Tagline - Simple version */}
@@ -135,7 +132,7 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
-            {studioInfo.tagline}
+            {venueInfo.tagline}
           </motion.h1>
 
           <div className="hero__title-wrapper">
@@ -162,7 +159,7 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1.2 }}
           >
-            {studioInfo.description}
+            {venueInfo.description}
           </motion.p>
 
           <motion.div
@@ -173,23 +170,19 @@ export function Hero() {
           >
             <motion.button
               className="hero__btn hero__btn--primary"
-              onClick={scrollToPortfolio}
+              onClick={() => scrollTo('booking')}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              <span>View Portfolio</span>
+              <span>Check Your Date</span>
             </motion.button>
             <motion.a
-              href="#contact"
+              href={`tel:${venueInfo.phone.replace(/[^\d+]/g, '')}`}
               className="hero__btn hero__btn--outline"
-              onClick={(e) => {
-                e.preventDefault()
-                document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
-              }}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              Get in Touch
+              Call {venueInfo.phone}
             </motion.a>
           </motion.div>
         </motion.div>
@@ -219,7 +212,7 @@ export function Hero() {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 2, duration: 0.8 }}
-          onClick={scrollToPortfolio}
+          onClick={() => scrollTo('venues')}
         >
           <span className="hero__scroll-text">Scroll</span>
           <motion.div

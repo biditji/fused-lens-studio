@@ -9,7 +9,7 @@
 }
 
 .nav--scrolled {
-  background: rgba(250, 250, 250, 0.9);
+  background: rgba(255, 252, 247, 0.92);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
@@ -211,13 +211,15 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: var(--space-2xl) var(--container-padding);
+  /* Seven links plus the call CTA can outrun a short phone screen. */
+  padding: calc(var(--header-height) + var(--space-lg)) var(--container-padding) var(--space-lg);
+  overflow-y: auto;
 }
 
 .mobile-menu__nav {
   display: flex;
   flex-direction: column;
-  gap: var(--space-lg);
+  gap: clamp(0.5rem, 2.5vh, var(--space-lg));
 }
 
 .mobile-menu__link {
@@ -225,7 +227,7 @@
   align-items: baseline;
   gap: var(--space-md);
   font-family: var(--font-display);
-  font-size: clamp(2rem, 8vw, 3.5rem);
+  font-size: clamp(1.75rem, 6.5vw, 3rem);
   color: var(--color-white);
   transition: color var(--transition-fast);
 }
@@ -244,7 +246,7 @@
 
 .mobile-menu__footer {
   margin-top: auto;
-  padding-top: var(--space-xl);
+  padding-top: clamp(1.5rem, 4vh, var(--space-xl));
   border-top: 1px solid var(--color-graphite);
 }
 
@@ -252,5 +254,22 @@
   font-size: 0.875rem;
   color: var(--color-silver);
   margin-bottom: var(--space-sm);
+}
+
+.mobile-menu__call {
+  display: block;
+  padding: 0.9rem 1.5rem;
+  margin-bottom: var(--space-md);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-align: center;
+  color: var(--color-charcoal);
+  background: var(--color-accent);
+  transition: background var(--transition-fast);
+}
+
+.mobile-menu__call:hover {
+  background: var(--color-accent-light);
 }
 

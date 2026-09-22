@@ -1,140 +1,85 @@
-// Using high-quality Unsplash images for the photography studio
-// These are curated professional photography images
+// Real photographs of Gopal Tent House setups, served from /public/photos.
+// Gallery items are also editable from the admin panel.
 
 export const heroSlides = [
   {
     id: 1,
-    image: 'https://images.unsplash.com/photo-1537633552985-df8429e8048b?w=1920&q=90',
-    title: 'Timeless',
-    subtitle: 'Memories'
+    image: '/photos/gold-chandelier-pavilion.jpg',
+    title: 'Where Forever',
+    subtitle: 'Begins'
   },
   {
     id: 2,
-    image: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=1920&q=90',
-    title: 'Your Story',
-    subtitle: 'Beautifully Told'
+    image: '/photos/blue-mandap-stage.jpg',
+    title: 'Themed Decor',
+    subtitle: 'Built For You'
   },
   {
     id: 3,
-    image: 'https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=1920&q=90',
-    title: 'Every Frame',
-    subtitle: 'A Masterpiece'
+    image: '/photos/catering-lawn-setup.jpg',
+    title: 'Everything',
+    subtitle: 'Under One Roof'
   },
   {
     id: 4,
-    image: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=1920&q=90',
-    title: 'Love',
-    subtitle: 'Captured Forever'
+    image: '/photos/monochrome-decor-stage.jpg',
+    title: 'Your Date',
+    subtitle: 'Our Ground'
   }
 ]
 
-export const portfolioImages = [
+export const galleryImages = [
   {
     id: 1,
-    src: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=85',
-    srcLarge: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=1600&q=90',
-    title: 'Eternal Vows',
-    category: 'wedding',
+    src: '/photos/gold-chandelier-pavilion.jpg',
+    srcLarge: '/photos/gold-chandelier-pavilion.jpg',
+    title: 'Chandelier Pavilion',
+    category: 'venue',
     aspect: 'landscape'
   },
   {
     id: 2,
-    src: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&q=85',
-    srcLarge: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=1600&q=90',
-    title: 'Editorial Portrait',
-    category: 'portrait',
-    aspect: 'portrait'
+    src: '/photos/blue-mandap-stage.jpg',
+    srcLarge: '/photos/blue-mandap-stage.jpg',
+    title: 'Blue & White Stage',
+    category: 'mandap',
+    aspect: 'landscape'
   },
   {
     id: 3,
-    src: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&q=85',
-    srcLarge: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=1600&q=90',
-    title: 'Product Showcase',
-    category: 'commercial',
-    aspect: 'square'
+    src: '/photos/monochrome-decor-stage.jpg',
+    srcLarge: '/photos/monochrome-decor-stage.jpg',
+    title: 'Monochrome Backdrop',
+    category: 'decor',
+    aspect: 'landscape'
   },
   {
     id: 4,
-    src: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=85',
-    srcLarge: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1600&q=90',
-    title: 'Corporate Gala',
-    category: 'event',
+    src: '/photos/blue-dining-setup.jpg',
+    srcLarge: '/photos/blue-dining-setup.jpg',
+    title: 'Themed Guest Seating',
+    category: 'seating',
     aspect: 'landscape'
   },
   {
     id: 5,
-    src: 'https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=800&q=85',
-    srcLarge: 'https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=1600&q=90',
-    title: 'First Dance',
-    category: 'wedding',
-    aspect: 'portrait'
-  },
-  {
-    id: 6,
-    src: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=85',
-    srcLarge: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1600&q=90',
-    title: 'Character Study',
-    category: 'portrait',
-    aspect: 'portrait'
-  },
-  {
-    id: 7,
-    src: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&q=85',
-    srcLarge: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=1600&q=90',
-    title: 'Audio Excellence',
-    category: 'commercial',
-    aspect: 'square'
-  },
-  {
-    id: 8,
-    src: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&q=85',
-    srcLarge: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1600&q=90',
-    title: 'Night Celebration',
-    category: 'event',
-    aspect: 'landscape'
-  },
-  {
-    id: 9,
-    src: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=800&q=85',
-    srcLarge: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=1600&q=90',
-    title: 'Wedding Kiss',
-    category: 'wedding',
-    aspect: 'landscape'
-  },
-  {
-    id: 10,
-    src: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=800&q=85',
-    srcLarge: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=1600&q=90',
-    title: 'Beauty & Fashion',
-    category: 'portrait',
-    aspect: 'portrait'
-  },
-  {
-    id: 11,
-    src: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&q=85',
-    srcLarge: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1600&q=90',
-    title: 'Retail Space',
-    category: 'commercial',
-    aspect: 'landscape'
-  },
-  {
-    id: 12,
-    src: 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=800&q=85',
-    srcLarge: 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=1600&q=90',
-    title: 'Birthday Bash',
-    category: 'event',
+    src: '/photos/catering-lawn-setup.jpg',
+    srcLarge: '/photos/catering-lawn-setup.jpg',
+    title: 'Buffet & Live Counters',
+    category: 'catering',
     aspect: 'landscape'
   }
 ]
 
 export const categories = [
-  { id: 'all', label: 'All Work' },
-  { id: 'wedding', label: 'Weddings' },
-  { id: 'portrait', label: 'Portraits' },
-  { id: 'commercial', label: 'Commercial' },
-  { id: 'event', label: 'Events' }
+  { id: 'all', label: 'All Photos' },
+  { id: 'venue', label: 'The Venue' },
+  { id: 'mandap', label: 'Mandap & Stage' },
+  { id: 'decor', label: 'Decor' },
+  { id: 'seating', label: 'Seating' },
+  { id: 'catering', label: 'Catering' }
 ]
 
-export const aboutImage = 'https://images.unsplash.com/photo-1554048612-b6a482bc67e5?w=1000&q=90'
+export const aboutImage = '/photos/gold-chandelier-pavilion.jpg'
 
 export const heroVideo = null // Can be set to a video URL if needed

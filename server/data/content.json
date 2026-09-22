@@ -1,179 +1,340 @@
 {
-  "studio": {
-    "name": "Fused Lens Studios",
-    "tagline": "Timeless Memories",
-    "description": "Crafting visual stories that transcend time. Every frame, a masterpiece.",
-    "founded": 2018,
-    "location": "Kirigiti, Kiambu, Kenya",
-    "address": "Kirigiti, Kiambu County",
-    "email": "hello@fusedlens.studio",
-    "phone": "+254 720 593 380",
-    "whatsapp": "+254720593380"
+  "venue": {
+    "name": "Gopal Tent House",
+    "tagline": "Where Forever Begins",
+    "description": "Grand lawns, royal shamianas and handcrafted mandaps — hosting unforgettable weddings for over three decades.",
+    "founded": 1992,
+    "location": "Vrindavan, Uttar Pradesh",
+    "address": "Mathura Road, Vrindavan, Uttar Pradesh 281121",
+    "email": "bookings@gopaltenthouse.com",
+    "phone": "+91 98765 43210",
+    "whatsapp": "919876543210"
   },
   "social": {
-    "instagram": "https://instagram.com/fusedlens",
-    "twitter": "https://twitter.com/fusedlens",
-    "behance": "https://behance.net/fusedlens",
-    "linkedin": "https://linkedin.com/company/fusedlens"
+    "instagram": "https://instagram.com/gopaltenthouse",
+    "facebook": "https://facebook.com/gopaltenthouse",
+    "youtube": "https://youtube.com/@gopaltenthouse",
+    "twitter": "https://twitter.com/gopaltenthouse"
   },
-  "mission": "At Fused Lens Studio, we believe photography is more than capturing images—it's about freezing emotions, preserving stories, and creating art that resonates across generations. Our passion lies in the details: the subtle glance, the fleeting smile, the perfect light. We blend technical mastery with artistic vision to deliver photographs that aren't just seen, but felt.",
+  "mission": "For three generations, Gopal Tent House has raised tents and lit lawns for the families of Vrindavan. We believe a wedding is not a transaction — it is a promise made in front of everyone a family loves. Our work is to make sure nothing on that day goes wrong: the canopy holds, the food arrives hot, the lights come on when the baraat turns the corner. Everything else is yours to enjoy.",
   "stats": [
     {
-      "value": 750,
+      "value": 2400,
       "suffix": "+",
-      "label": "Projects Completed"
+      "label": "Weddings Hosted"
     },
     {
-      "value": 500,
-      "suffix": "+",
-      "label": "Happy Clients"
-    },
-    {
-      "value": 15,
+      "value": 33,
       "suffix": "",
-      "label": "Awards Won"
+      "label": "Years of Service"
     },
     {
-      "value": 25,
-      "suffix": "+",
-      "label": "Countries Served"
+      "value": 4,
+      "suffix": "",
+      "label": "Bookable Venues"
+    },
+    {
+      "value": 1000,
+      "suffix": "",
+      "label": "Max Guest Capacity"
+    }
+  ],
+  "venues": [
+    {
+      "id": "grand-lawn",
+      "name": "Gopal Grand Lawn",
+      "type": "Open-Air Lawn",
+      "capacity": 1000,
+      "area": "25,000 sq ft",
+      "price": 185000,
+      "description": "Our flagship open-air lawn, framed by old banyan trees and festoon lighting. Built for baraats, fireworks and thousand-guest receptions.",
+      "image": "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=1200&q=85",
+      "amenities": [
+        "Valet parking for 250 cars",
+        "Bridal suite & green rooms",
+        "Power backup (250 KVA)",
+        "In-house catering kitchen",
+        "Fireworks permitted",
+        "Baraat entry driveway"
+      ]
+    },
+    {
+      "id": "shamiana-pavilion",
+      "name": "Shamiana Pavilion",
+      "type": "Traditional Tented Pavilion",
+      "capacity": 600,
+      "area": "12,000 sq ft",
+      "price": 120000,
+      "description": "A hand-embroidered Rajasthani shamiana with chandeliers and carved wooden pillars — traditional character with modern comfort.",
+      "image": "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=1200&q=85",
+      "amenities": [
+        "Weatherproof canopy",
+        "Air coolers & heaters",
+        "Raised mandap platform",
+        "Dedicated buffet wing",
+        "Ambient uplighting",
+        "Separate service entry"
+      ]
+    },
+    {
+      "id": "radha-banquet",
+      "name": "Radha Banquet Hall",
+      "type": "Air-Conditioned Indoor Hall",
+      "capacity": 400,
+      "area": "8,000 sq ft",
+      "price": 95000,
+      "description": "A fully air-conditioned pillarless hall with a crystal chandelier centrepiece — ideal for receptions, sangeet nights and winter weddings.",
+      "image": "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?w=1200&q=85",
+      "amenities": [
+        "Central air conditioning",
+        "Pillarless floor plan",
+        "LED wall & DJ console",
+        "Attached dining hall",
+        "Basement parking",
+        "Wheelchair accessible"
+      ]
+    },
+    {
+      "id": "vrindavan-terrace",
+      "name": "Vrindavan Terrace",
+      "type": "Rooftop Venue",
+      "capacity": 250,
+      "area": "5,000 sq ft",
+      "price": 65000,
+      "description": "An intimate rooftop under open sky with string lights and a skyline view — perfect for mehendi, haldi and engagement evenings.",
+      "image": "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=1200&q=85",
+      "amenities": [
+        "Open-sky seating",
+        "String & fairy lighting",
+        "Cocktail bar counter",
+        "Lift access",
+        "Live counter space",
+        "Retractable rain cover"
+      ]
+    }
+  ],
+  "packages": [
+    {
+      "id": "sagai",
+      "name": "Sagai",
+      "subtitle": "Intimate Celebrations",
+      "price": 125000,
+      "guests": "Up to 200 guests",
+      "popular": false,
+      "description": "A complete engagement or roka setup, handled end to end.",
+      "features": [
+        "Venue for one evening slot",
+        "Floral stage & entrance decor",
+        "Round table seating with covers",
+        "Vegetarian buffet (8 dishes)",
+        "Basic lighting & sound",
+        "Dedicated event supervisor"
+      ]
+    },
+    {
+      "id": "vivah",
+      "name": "Vivah",
+      "subtitle": "The Classic Wedding",
+      "price": 350000,
+      "guests": "Up to 500 guests",
+      "popular": true,
+      "description": "Our most-booked package — the full wedding day, start to finish.",
+      "features": [
+        "Venue for full day",
+        "Carved mandap with floral canopy",
+        "Baraat welcome with dhol & flowers",
+        "Vegetarian buffet (16 dishes) + 3 live counters",
+        "Designer lighting, DJ & sound",
+        "Bridal suite & green rooms",
+        "Valet parking",
+        "Dedicated event manager"
+      ]
+    },
+    {
+      "id": "maharaja",
+      "name": "Maharaja",
+      "subtitle": "Multi-Day Grandeur",
+      "price": 750000,
+      "guests": "Up to 1000 guests",
+      "popular": false,
+      "description": "Three days of ceremonies across our lawn and pavilion.",
+      "features": [
+        "Two venues across three days",
+        "Haldi, mehendi, sangeet & wedding setups",
+        "Premium theme decor with imported florals",
+        "Multi-cuisine catering + 6 live counters",
+        "Fireworks & entry effects",
+        "Guest room coordination",
+        "Drone & photography coordination",
+        "Full-time event crew of 40+"
+      ]
     }
   ],
   "services": [
     {
       "id": 1,
-      "title": "Wedding Photograph",
-      "description": "Capturing your love story with cinematic elegance. Every moment, every emotion, preserved forever.",
-      "icon": "wedding",
+      "title": "Tent & Shamiana Setup",
+      "description": "Waterproof German hangars, Rajasthani shamianas and canopies raised to fit your guest list and your ground.",
+      "icon": "tent",
       "features": [
-        "Full Day Coverage",
-        "Engagement Session",
-        "Premium Album",
-        "Highlight Film"
+        "Weatherproof structures",
+        "Custom spans up to 25,000 sq ft",
+        "Carved pillars & drapes",
+        "Same-day dismantling"
       ]
     },
     {
       "id": 2,
-      "title": "Portrait Sessions",
-      "description": "Revealing your authentic beauty through artistic vision and masterful lighting.",
-      "icon": "portrait",
+      "title": "Decor & Florals",
+      "description": "Entrance gates, stage backdrops and walkways dressed in fresh flowers, drapes and theme lighting.",
+      "icon": "decor",
       "features": [
-        "Professional Studio",
-        "Multiple Looks",
-        "Retouching Included",
-        "Digital Gallery"
+        "Fresh floral installations",
+        "Theme-based backdrops",
+        "Entrance & pathway decor",
+        "Photo-booth corners"
       ]
     },
     {
       "id": 3,
-      "title": "Commercial Projects",
-      "description": "Elevating brands with stunning imagery that speaks volumes and drives results.",
-      "icon": "commercial",
+      "title": "Mandap & Stage",
+      "description": "Hand-carved wooden mandaps, floral canopies and raised stages built for the ceremony and the photographs.",
+      "icon": "mandap",
       "features": [
-        "Product Photography",
-        "Brand Campaigns",
-        "Lifestyle Shoots",
-        "Social Content"
+        "Carved wooden mandaps",
+        "Floral & drape canopies",
+        "Raised pheras platform",
+        "Havan kund arrangement"
       ]
     },
     {
       "id": 4,
-      "title": "Event Coverage",
-      "description": "Documenting special occasions with discretion and an eye for unforgettable moments.",
-      "icon": "event",
+      "title": "Catering & Live Counters",
+      "description": "Pure-veg multi-cuisine kitchens, chaat and tandoor counters, and trained service staff for every table.",
+      "icon": "catering",
       "features": [
-        "Corporate Events",
-        "Private Parties",
-        "Same-Day Edits",
-        "Photo Booth"
+        "Pure vegetarian kitchen",
+        "North Indian, Chinese & Continental",
+        "Live chaat & tandoor counters",
+        "Uniformed service staff"
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Lighting & Sound",
+      "description": "Festoon and uplighting, LED walls, DJ consoles and clean audio that carries across the whole ground.",
+      "icon": "lighting",
+      "features": [
+        "Festoon & uplighting",
+        "LED video walls",
+        "Professional DJ & sound",
+        "Power backup included"
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Furniture & Seating",
+      "description": "Chiavari chairs, round tables, sofa lounges and buffet counters — laid out and cleared by our crew.",
+      "icon": "furniture",
+      "features": [
+        "Chiavari & VIP chairs",
+        "Round & long tables",
+        "Lounge sofa settings",
+        "Linen, covers & drapes"
       ]
     }
   ],
   "testimonials": [
     {
       "id": 1,
-      "name": "Sarah Johnson",
-      "role": "Bride",
-      "content": "Fused Lens Studio captured our wedding day perfectly. Every photo tells a story, and we couldn't be happier with the results.",
+      "name": "Anjali & Rohit Sharma",
+      "role": "Wedding, Gopal Grand Lawn",
+      "content": "We had 800 guests and not one thing went wrong. The lawn looked like a palace and the team handled the baraat, the catering and a sudden drizzle without us ever hearing about it.",
       "rating": 5,
       "image": "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&q=90"
     },
     {
       "id": 2,
-      "name": "Michael Chen",
-      "role": "Corporate Client",
-      "content": "Professional, creative, and reliable. Their commercial photography exceeded our expectations for our brand campaign.",
+      "name": "Meera Agarwal",
+      "role": "Mother of the Bride",
+      "content": "I have attended weddings at Gopal Tent House for twenty years, so booking my own daughter's was an easy decision. Gopal ji personally checked every arrangement the night before.",
       "rating": 5,
-      "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&q=90"
+      "image": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&q=90"
     },
     {
       "id": 3,
-      "name": "Emma Rodriguez",
-      "role": "Portrait Client",
-      "content": "The attention to detail and artistic vision is incredible. My portraits are absolutely stunning.",
+      "name": "Vikram Singh",
+      "role": "Reception, Radha Banquet Hall",
+      "content": "The hall was spotless, the AC actually worked in May, and the food counters never ran empty. Guests are still talking about the chaat counter.",
       "rating": 5,
-      "image": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&q=90"
+      "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&q=90"
     }
   ],
   "heroSlides": [
     {
       "id": 1,
-      "image": "https://images.unsplash.com/photo-1537633552985-df8429e8048b?w=1920&q=90",
-      "title": "Timeless",
-      "subtitle": "Memories"
+      "image": "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=1920&q=90",
+      "title": "Where Forever",
+      "subtitle": "Begins"
     },
     {
       "id": 2,
-      "image": "https://images.unsplash.com/photo-1519741497674-611481863552?w=1920&q=90",
-      "title": "Your Story",
-      "subtitle": "Beautifully Told"
+      "image": "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=1920&q=90",
+      "title": "Royal Shamianas",
+      "subtitle": "Since 1992"
     },
     {
       "id": 3,
-      "image": "https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=1920&q=90",
-      "title": "Every Frame",
-      "subtitle": "A Masterpiece"
+      "image": "https://images.unsplash.com/photo-1519741497674-611481863552?w=1920&q=90",
+      "title": "Every Ritual",
+      "subtitle": "Perfectly Staged"
     },
     {
       "id": 4,
-      "image": "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=1920&q=90",
-      "title": "Love",
-      "subtitle": "Captured Forever"
+      "image": "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=1920&q=90",
+      "title": "Your Date",
+      "subtitle": "Our Ground"
     }
   ],
   "collaborators": [
     {
       "id": 1,
-      "name": "Jane Doe",
-      "role": "Lead Photographer",
-      "bio": "With over 10 years of experience, Jane specializes in wedding and portrait photography.",
+      "name": "Gopal Das Agarwal",
+      "role": "Founder & Proprietor",
+      "bio": "Started the business in 1992 with one shamiana. Still personally inspects every wedding setup the night before.",
       "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&q=90",
       "social": {
-        "instagram": "https://instagram.com/janedoe",
-        "linkedin": "https://linkedin.com/in/janedoe"
+        "instagram": "https://instagram.com/gopaltenthouse"
       }
     },
     {
       "id": 2,
-      "name": "John Smith",
-      "role": "Video Specialist",
-      "bio": "John brings stories to life through cinematic videography and editing.",
-      "image": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&q=90",
+      "name": "Sunita Agarwal",
+      "role": "Head of Decor",
+      "bio": "Designs every mandap, stage and entrance gate. Trained in floral art in Jaipur.",
+      "image": "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=300&q=90",
       "social": {
-        "instagram": "https://instagram.com/johnsmith",
-        "behance": "https://behance.net/johnsmith"
+        "instagram": "https://instagram.com/gopaltenthouse"
       }
+    },
+    {
+      "id": 3,
+      "name": "Chef Ramesh Yadav",
+      "role": "Head Chef",
+      "bio": "Runs our pure-vegetarian kitchen and live counters. Twenty years of wedding catering across Braj.",
+      "image": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&q=90",
+      "social": {}
     }
   ],
   "about": {
-    "title": "About Fused Lens Studio",
-    "content": "Founded in 2018, Fused Lens Studio has been at the forefront of creative photography, blending traditional techniques with modern innovation. Our team of passionate photographers and videographers work tirelessly to capture the essence of every moment, creating timeless memories that last a lifetime.",
-    "story": "What started as a small passion project has grown into a full-service creative studio serving clients across Kenya and beyond. We believe in the power of visual storytelling and the impact it has on connecting people, preserving memories, and building brands.",
+    "title": "Three Generations of Weddings",
+    "content": "Gopal Tent House began in 1992 with a single hand-stitched shamiana and a borrowed truck. Today we run four bookable venues, an in-house kitchen and a crew of over forty — but the job has not changed. We put up the tent, we light the ground, and we make sure a family can stand in the middle of their own wedding without worrying about a single thing.",
+    "story": "Everything is handled under one roof: the ground, the tent, the decor, the mandap, the food, the lights and the furniture. Families deal with one team and one bill instead of chasing six vendors. That is why most of our bookings still come from someone who attended a wedding here and asked for our number.",
     "values": [
-      "Excellence in every frame",
-      "Authentic storytelling",
-      "Client-centered approach",
-      "Continuous innovation"
+      "One team, one bill, no chasing vendors",
+      "Pure vegetarian kitchen, cooked on site",
+      "Setup finished a full day before the event",
+      "Written quotation, no surprises later"
     ]
   }
 }

@@ -1,12 +1,12 @@
 /* Admin Panel - Simplified & Clean */
 :root {
-  --admin-bg: #0f0f0f;
-  --admin-surface: #1a1a1a;
-  --admin-card: #252525;
-  --admin-border: #333;
+  --admin-bg: #150d10;
+  --admin-surface: #201419;
+  --admin-card: #2b1a21;
+  --admin-border: #3d2831;
   --admin-text: #ffffff;
-  --admin-text-muted: #999;
-  --admin-accent: #c9a962;
+  --admin-text-muted: #a3949a;
+  --admin-accent: #c79437;
   --admin-success: #4ade80;
   --admin-error: #f87171;
   --admin-radius: 8px;
@@ -1012,4 +1012,260 @@ html, body {
   .admin-header {
     padding: 1rem;
   }
+}
+
+/* ========================================
+   Booking enquiries, venues & packages
+   ======================================== */
+
+.admin-nav__badge {
+  margin-left: auto;
+  min-width: 20px;
+  padding: 0.1rem 0.4rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  line-height: 1.4;
+  text-align: center;
+  color: #150d10;
+  background: var(--admin-accent);
+  border-radius: 999px;
+}
+
+.admin-stat-card--highlight {
+  border-color: var(--admin-accent);
+  box-shadow: 0 0 0 1px rgba(199, 148, 55, 0.25);
+}
+
+.admin-callout {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  margin-bottom: var(--admin-spacing);
+  background: rgba(199, 148, 55, 0.1);
+  border: 1px solid rgba(199, 148, 55, 0.35);
+  border-radius: var(--admin-radius);
+}
+
+.admin-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: pointer;
+}
+
+.admin-checkbox input {
+  width: auto;
+  margin: 0;
+  accent-color: var(--admin-accent);
+}
+
+/* ---------- Status filters ---------- */
+
+.admin-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: var(--admin-spacing);
+}
+
+.admin-filter {
+  padding: 0.5rem 1rem;
+  font-family: inherit;
+  font-size: 0.82rem;
+  color: var(--admin-text-muted);
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-border);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.admin-filter:hover {
+  color: var(--admin-text);
+  border-color: var(--admin-accent);
+}
+
+.admin-filter--active {
+  color: #150d10;
+  background: var(--admin-accent);
+  border-color: var(--admin-accent);
+}
+
+/* ---------- Enquiry list ---------- */
+
+.admin-enquiries {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.admin-enquiry {
+  background: var(--admin-card);
+  border: 1px solid var(--admin-border);
+  border-left: 3px solid var(--admin-border);
+  border-radius: var(--admin-radius);
+  overflow: hidden;
+}
+
+.admin-enquiry--new { border-left-color: var(--admin-accent); }
+.admin-enquiry--contacted { border-left-color: #60a5fa; }
+.admin-enquiry--confirmed { border-left-color: var(--admin-success); }
+.admin-enquiry--declined { border-left-color: var(--admin-error); }
+
+.admin-enquiry__summary {
+  display: grid;
+  grid-template-columns: auto 1fr auto auto auto;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  padding: 1rem 1.25rem;
+  font-family: inherit;
+  font-size: 0.9rem;
+  text-align: left;
+  color: var(--admin-text);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.admin-enquiry__summary:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.admin-enquiry__name {
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.admin-enquiry__date,
+.admin-enquiry__phone {
+  color: var(--admin-text-muted);
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.admin-enquiry__chevron {
+  width: 1.5rem;
+  text-align: center;
+  color: var(--admin-text-muted);
+}
+
+.admin-status {
+  padding: 0.25rem 0.65rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.admin-status--new { color: #150d10; background: var(--admin-accent); }
+.admin-status--contacted { color: #0b1c33; background: #60a5fa; }
+.admin-status--confirmed { color: #06230f; background: var(--admin-success); }
+.admin-status--declined { color: #2c0a0a; background: var(--admin-error); }
+
+/* ---------- Enquiry detail ---------- */
+
+.admin-enquiry__detail {
+  padding: 0 1.25rem 1.25rem;
+  border-top: 1px solid var(--admin-border);
+}
+
+.admin-enquiry__facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin: 1.25rem 0;
+}
+
+.admin-enquiry__facts dt {
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--admin-text-muted);
+  margin-bottom: 0.2rem;
+}
+
+.admin-enquiry__facts dd {
+  margin: 0;
+  font-size: 0.92rem;
+  color: var(--admin-text);
+  text-transform: capitalize;
+}
+
+.admin-enquiry__message {
+  padding: 0.9rem 1rem;
+  margin-bottom: 1.25rem;
+  background: var(--admin-surface);
+  border-radius: var(--admin-radius);
+}
+
+.admin-enquiry__message strong {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--admin-text-muted);
+}
+
+.admin-enquiry__message p {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+.admin-enquiry__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.admin-enquiry__actions a.admin-btn {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.admin-enquiry__status-select {
+  padding: 0.45rem 0.75rem;
+  font-family: inherit;
+  font-size: 0.82rem;
+  color: var(--admin-text);
+  background: var(--admin-bg);
+  border: 1px solid var(--admin-border);
+  border-radius: var(--admin-radius);
+  cursor: pointer;
+}
+
+.admin-enquiry__status-select:focus {
+  outline: none;
+  border-color: var(--admin-accent);
+}
+
+@media (max-width: 720px) {
+  .admin-enquiry__summary {
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      "status chevron"
+      "name name"
+      "date phone";
+    gap: 0.5rem;
+  }
+
+  .admin-enquiry__summary > .admin-status { grid-area: status; justify-self: start; }
+  .admin-enquiry__name { grid-area: name; }
+  .admin-enquiry__date { grid-area: date; }
+  .admin-enquiry__phone { grid-area: phone; justify-self: end; }
+  .admin-enquiry__chevron { grid-area: chevron; }
 }

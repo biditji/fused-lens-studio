@@ -2,10 +2,12 @@ import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import gsap from 'gsap'
 import { heroSlides } from '../../data/images'
-import { venueInfo } from '../../data/content'
+
+import { useVenueInfo } from '../../context/VenueContext'
 import './Hero.css'
 
 export function Hero() {
+  const venueInfo = useVenueInfo()
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isLoaded, setIsLoaded] = useState(false)
   const heroRef = useRef(null)

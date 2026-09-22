@@ -56,7 +56,6 @@ router.post('/', (req, res) => {
       email,
       eventDate,
       eventType,
-      venueId,
       timeSlot,
       guests,
       message
@@ -96,7 +95,6 @@ router.post('/', (req, res) => {
       email: email ? email.trim() : '',
       eventDate,
       eventType: eventType || '',
-      venueId: venueId || '',
       timeSlot: timeSlot || '',
       guests: guestCount,
       message: message ? message.trim() : '',

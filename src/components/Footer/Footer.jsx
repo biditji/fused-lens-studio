@@ -1,8 +1,10 @@
 import { motion } from 'framer-motion'
-import { venueInfo, navLinks, venues } from '../../data/content'
+import { navLinks, services } from '../../data/content'
+import { useVenueInfo } from '../../context/VenueContext'
 import './Footer.css'
 
 export function Footer() {
+  const venueInfo = useVenueInfo()
   const currentYear = new Date().getFullYear()
 
   const scrollToSection = (sectionId) => {
@@ -36,7 +38,7 @@ export function Footer() {
             </motion.a>
             <p className="footer__tagline">{venueInfo.tagline}</p>
             <p className="footer__description">
-              Lawns, halls and shamianas with tent, decor, catering and lighting handled
+              Tent, decor, mandap, catering, lighting and furniture handled
               in house — serving {venueInfo.location} since {venueInfo.founded}.
             </p>
           </div>
@@ -62,18 +64,18 @@ export function Footer() {
             </nav>
           </div>
 
-          {/* Venues */}
+          {/* Services */}
           <div className="footer__services">
-            <h4 className="footer__heading">Our Venues</h4>
+            <h4 className="footer__heading">What We Handle</h4>
             <nav className="footer__links">
-              {venues.map((venue) => (
+              {services.map((service) => (
                 <a
-                  key={venue.id}
-                  href="#venues"
+                  key={service.id}
+                  href="#services"
                   className="footer__link clickable"
-                  onClick={(e) => { e.preventDefault(); scrollToSection('venues') }}
+                  onClick={(e) => { e.preventDefault(); scrollToSection('services') }}
                 >
-                  {venue.name}
+                  {service.title}
                 </a>
               ))}
             </nav>

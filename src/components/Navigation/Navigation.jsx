@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useScrollProgress } from '../../hooks'
-import { navLinks, venueInfo } from '../../data/content'
+import { navLinks } from '../../data/content'
+import { useVenueInfo } from '../../context/VenueContext'
 import './Navigation.css'
 
 export function Navigation() {
+  const venueInfo = useVenueInfo()
   const progress = useScrollProgress()
   const [isScrolled, setIsScrolled] = useState(false)
   const [activeSection, setActiveSection] = useState('home')

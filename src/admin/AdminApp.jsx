@@ -163,8 +163,8 @@ function Overview({ data, onOpenTab }) {
           <p>Contact Messages</p>
         </div>
         <div className="admin-stat-card">
-          <h3>{data.content?.venues?.length || 0}</h3>
-          <p>Venues</p>
+          <h3>{data.content?.venue?.capacity || 0}</h3>
+          <p>Guest Capacity</p>
         </div>
         <div className="admin-stat-card">
           <h3>{data.photos?.photos?.length || 0}</h3>
@@ -325,13 +325,54 @@ function VenueEditor({ data, onSave, saving }) {
             type="text"
             value={formData.whatsapp || ''}
             onChange={(e) => setFormData(prev => ({ ...prev, whatsapp: e.target.value }))}
+            placeholder="Country code + number, e.g. 919026323680"
+          />
+        </div>
+
+        <div className="admin-input-group">
+          <label>Guest Capacity</label>
+          <input
+            type="number"
+            min="1"
+            value={formData.capacity ?? ''}
+            onChange={(e) => setFormData(prev => ({ ...prev, capacity: e.target.value }))}
+          />
+        </div>
+
+        <div className="admin-input-group">
+          <label>Ground Area</label>
+          <input
+            type="text"
+            value={formData.area || ''}
+            onChange={(e) => setFormData(prev => ({ ...prev, area: e.target.value }))}
+            placeholder="e.g. 25,000 sq ft"
+          />
+        </div>
+
+        <div className="admin-input-group">
+          <label>Setup Time Before Event</label>
+          <input
+            type="text"
+            value={formData.setupTime || ''}
+            onChange={(e) => setFormData(prev => ({ ...prev, setupTime: e.target.value }))}
+            placeholder="e.g. 24 hrs"
+          />
+        </div>
+
+        <div className="admin-input-group admin-input-group--full">
+          <label>Amenities (one per line)</label>
+          <textarea
+            value={(formData.amenities || []).join('\n')}
+            onChange={(e) => setFormData(prev => ({ ...prev, amenities: linesToArray(e.target.value) }))}
+            rows={8}
+            placeholder={'Indoor and open-air setups\nChandelier and festoon lighting\nPower backup included'}
           />
         </div>
       </div>
 
         <div className="admin-actions">
           <button type="submit" className="admin-btn admin-btn--primary" disabled={saving}>
-            {saving ? 'Saving...' : 'Save Studio Info'}
+            {saving ? 'Saving...' : 'Save Venue Info'}
           </button>
         </div>
       </form>
@@ -1149,7 +1190,7 @@ function ContactEditor({ data, onSave, saving }) {
   return <VenueEditor data={data} onSave={onSave} saving={saving} />
 }
 
-// Turns a name into a stable, URL-safe id for new venues and packages.
+// Turns a name into a stable, URL-safe id for new packages.
 const slugify = (value, fallback) =>
   (value || '')
     .toLowerCase()
@@ -1160,179 +1201,6 @@ const slugify = (value, fallback) =>
 // Multi-line textarea <-> array of strings, used for amenities and features.
 const linesToArray = (text) =>
   text.split('\n').map(line => line.trim()).filter(Boolean)
-
-// Venues Editor Component
-function VenuesEditor({ data, onSave, saving }) {
-  const [venues, setVenues] = useState(data || [])
-
-  useEffect(() => {
-    setVenues(data || [])
-  }, [data])
-
-  const addVenue = () => {
-    setVenues(prev => [...prev, {
-      id: `venue-${Date.now()}`,
-      name: '',
-      type: '',
-      capacity: 100,
-      area: '',
-      price: 0,
-      description: '',
-      image: '',
-      amenities: []
-    }])
-  }
-
-  const updateVenue = (index, field, value) => {
-    setVenues(prev => prev.map((venue, i) =>
-      i === index ? { ...venue, [field]: value } : venue
-    ))
-  }
-
-  const removeVenue = (index) => {
-    if (!confirm('Remove this venue? It will disappear from the website and the booking form.')) return
-    setVenues(prev => prev.filter((_, i) => i !== index))
-  }
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    // Fill in any missing ids so the booking form always has something to store.
-    onSave(venues.map((venue, i) => ({
-      ...venue,
-      id: venue.id || slugify(venue.name, `venue-${i + 1}`),
-      capacity: Number(venue.capacity) || 0,
-      price: Number(venue.price) || 0
-    })))
-  }
-
-  return (
-    <div className="admin-section">
-      <div className="admin-section__header">
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div>
-            <h2>Venues</h2>
-            <p>The spaces families can book. These also fill the booking form's venue list.</p>
-          </div>
-          <button type="button" className="admin-btn admin-btn--secondary" onClick={addVenue}>
-            + Add Venue
-          </button>
-        </div>
-      </div>
-
-      <form onSubmit={handleSubmit}>
-        {venues.length === 0 && (
-          <div className="admin-empty">
-            <span>🎪</span>
-            <p>No venues yet. Click "Add Venue" to create one.</p>
-          </div>
-        )}
-
-        {venues.map((venue, index) => (
-          <div key={venue.id || index} className="admin-card">
-            <div className="admin-card__header">
-              <h4>{venue.name || `Venue ${index + 1}`}</h4>
-              <button
-                type="button"
-                className="admin-btn admin-btn--danger admin-btn--small"
-                onClick={() => removeVenue(index)}
-              >
-                Remove
-              </button>
-            </div>
-
-            <div className="admin-grid">
-              <div className="admin-input-group">
-                <label>Venue Name</label>
-                <input
-                  type="text"
-                  value={venue.name || ''}
-                  onChange={(e) => updateVenue(index, 'name', e.target.value)}
-                  placeholder="e.g. Gopal Grand Lawn"
-                  required
-                />
-              </div>
-
-              <div className="admin-input-group">
-                <label>Type</label>
-                <input
-                  type="text"
-                  value={venue.type || ''}
-                  onChange={(e) => updateVenue(index, 'type', e.target.value)}
-                  placeholder="e.g. Open-Air Lawn"
-                />
-              </div>
-
-              <div className="admin-input-group">
-                <label>Guest Capacity</label>
-                <input
-                  type="number"
-                  min="1"
-                  value={venue.capacity ?? ''}
-                  onChange={(e) => updateVenue(index, 'capacity', e.target.value)}
-                />
-              </div>
-
-              <div className="admin-input-group">
-                <label>Area</label>
-                <input
-                  type="text"
-                  value={venue.area || ''}
-                  onChange={(e) => updateVenue(index, 'area', e.target.value)}
-                  placeholder="e.g. 25,000 sq ft"
-                />
-              </div>
-
-              <div className="admin-input-group">
-                <label>Starting Price (₹ per day)</label>
-                <input
-                  type="number"
-                  min="0"
-                  value={venue.price ?? ''}
-                  onChange={(e) => updateVenue(index, 'price', e.target.value)}
-                />
-              </div>
-
-              <div className="admin-input-group">
-                <label>Photo URL</label>
-                <input
-                  type="text"
-                  value={venue.image || ''}
-                  onChange={(e) => updateVenue(index, 'image', convertGoogleDriveLink(e.target.value))}
-                  placeholder="https://…"
-                />
-              </div>
-
-              <div className="admin-input-group admin-input-group--full">
-                <label>Description</label>
-                <textarea
-                  value={venue.description || ''}
-                  onChange={(e) => updateVenue(index, 'description', e.target.value)}
-                  rows={3}
-                />
-              </div>
-
-              <div className="admin-input-group admin-input-group--full">
-                <label>Amenities (one per line)</label>
-                <textarea
-                  value={(venue.amenities || []).join('\n')}
-                  onChange={(e) => updateVenue(index, 'amenities', linesToArray(e.target.value))}
-                  rows={6}
-                  placeholder={'Valet parking for 250 cars\nBridal suite & green rooms\nPower backup'}
-                />
-              </div>
-            </div>
-          </div>
-        ))}
-
-        <div className="admin-actions">
-          <button type="submit" className="admin-btn admin-btn--primary" disabled={saving}>
-            {saving ? 'Saving...' : 'Save Venues'}
-          </button>
-        </div>
-      </form>
-    </div>
-  )
-}
 
 // Packages Editor Component
 function PackagesEditor({ data, onSave, saving }) {
@@ -1511,7 +1379,7 @@ const ENQUIRY_STATUSES = [
   { id: 'declined', label: 'Declined' }
 ]
 
-function EnquiriesManager({ data, venues, onUpdateStatus, onSaveNotes, onDelete }) {
+function EnquiriesManager({ data, onUpdateStatus, onSaveNotes, onDelete }) {
   const [filter, setFilter] = useState('all')
   const [openId, setOpenId] = useState(null)
   const [noteDrafts, setNoteDrafts] = useState({})
@@ -1520,9 +1388,6 @@ function EnquiriesManager({ data, venues, onUpdateStatus, onSaveNotes, onDelete 
   const visible = filter === 'all'
     ? enquiries
     : enquiries.filter(e => e.status === filter)
-
-  const venueName = (id) =>
-    venues?.find(v => v.id === id)?.name || (id ? id : 'No preference')
 
   const counts = ENQUIRY_STATUSES.reduce((acc, status) => {
     acc[status.id] = enquiries.filter(e => e.status === status.id).length
@@ -1598,10 +1463,6 @@ function EnquiriesManager({ data, venues, onUpdateStatus, onSaveNotes, onDelete 
                       <div>
                         <dt>Occasion</dt>
                         <dd>{enquiry.eventType || '—'}</dd>
-                      </div>
-                      <div>
-                        <dt>Venue</dt>
-                        <dd>{venueName(enquiry.venueId)}</dd>
                       </div>
                       <div>
                         <dt>Slot</dt>
@@ -1979,7 +1840,6 @@ function Dashboard({ token, onLogout }) {
   const tabs = [
     { id: 'overview', label: 'Overview', icon: '📊' },
     { id: 'enquiries', label: 'Enquiries', icon: '📅', badge: newEnquiryCount },
-    { id: 'venues', label: 'Venues', icon: '🎪' },
     { id: 'packages', label: 'Packages', icon: '💐' },
     { id: 'studio', label: 'Venue Info', icon: '🏠' },
     { id: 'hero', label: 'Hero Section', icon: '🎬' },
@@ -2059,21 +1919,13 @@ function Dashboard({ token, onLogout }) {
           {activeTab === 'enquiries' && (
             <EnquiriesManager
               data={data.enquiries || []}
-              venues={data.content?.venues || []}
+
               onUpdateStatus={handleEnquiryStatus}
               onSaveNotes={handleEnquiryNotes}
               onDelete={handleDeleteEnquiry}
             />
           )}
 
-          {/* Venues Tab */}
-          {activeTab === 'venues' && data.content && (
-            <VenuesEditor
-              data={data.content.venues || []}
-              onSave={(venues) => saveSection('Venues', '/content/venues', { venues })}
-              saving={saving}
-            />
-          )}
 
           {/* Packages Tab */}
           {activeTab === 'packages' && data.content && (

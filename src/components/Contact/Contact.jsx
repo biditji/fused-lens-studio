@@ -2,7 +2,8 @@ import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { venueInfo } from '../../data/content'
+
+import { useVenueInfo } from '../../context/VenueContext'
 import './Contact.css'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -42,6 +43,7 @@ const SocialIcon = ({ platform }) => {
 }
 
 export function Contact() {
+  const venueInfo = useVenueInfo()
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -168,7 +170,7 @@ export function Contact() {
             <motion.div className="contact__map" variants={itemVariants}>
               <div className="contact__map-visual">
                 <iframe
-                  src="https://www.google.com/maps?q=Vrindavan%2C%20Uttar%20Pradesh%20281121&output=embed"
+                  src="https://www.google.com/maps?q=Gopal+Tent+House%2C+Kanpur%2C+Uttar+Pradesh&output=embed"
                   width="100%"
                   height="300"
                   style={{ border: 0, borderRadius: '8px' }}

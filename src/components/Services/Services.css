@@ -12,7 +12,7 @@
 
 @media (min-width: 1024px) {
   .services__grid {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
 

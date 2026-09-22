@@ -2,13 +2,26 @@
   "venue": {
     "name": "Gopal Tent House",
     "tagline": "Where Forever Begins",
-    "description": "Grand lawns, royal shamianas and handcrafted mandaps — hosting unforgettable weddings for over three decades.",
+    "description": "Grand shamianas, handcrafted mandaps and themed decor — hosting unforgettable weddings in Kanpur.",
     "founded": 1992,
-    "location": "Vrindavan, Uttar Pradesh",
-    "address": "Mathura Road, Vrindavan, Uttar Pradesh 281121",
+    "location": "Kanpur, Uttar Pradesh",
+    "address": "Kanpur, Uttar Pradesh",
     "email": "bookings@gopaltenthouse.com",
-    "phone": "+91 98765 43210",
-    "whatsapp": "919876543210"
+    "phone": "+91 90263 23680",
+    "whatsapp": "919026323680",
+    "capacity": 1000,
+    "area": "25,000 sq ft",
+    "setupTime": "24 hrs",
+    "amenities": [
+      "Indoor and open-air setups",
+      "Weatherproof shamiana & German hangar",
+      "Chandelier and festoon lighting",
+      "Bridal suite & green rooms",
+      "Power backup included",
+      "In-house vegetarian kitchen",
+      "Ample guest & valet parking",
+      "Baraat entry driveway"
+    ]
   },
   "social": {
     "instagram": "https://instagram.com/gopaltenthouse",
@@ -16,7 +29,7 @@
     "youtube": "https://youtube.com/@gopaltenthouse",
     "twitter": "https://twitter.com/gopaltenthouse"
   },
-  "mission": "For three generations, Gopal Tent House has raised tents and lit lawns for the families of Vrindavan. We believe a wedding is not a transaction — it is a promise made in front of everyone a family loves. Our work is to make sure nothing on that day goes wrong: the canopy holds, the food arrives hot, the lights come on when the baraat turns the corner. Everything else is yours to enjoy.",
+  "mission": "For three generations, Gopal Tent House has raised tents and lit grounds for the families of Kanpur. We believe a wedding is not a transaction — it is a promise made in front of everyone a family loves. Our work is to make sure nothing on that day goes wrong: the canopy holds, the food arrives hot, the lights come on when the baraat turns the corner. Everything else is yours to enjoy.",
   "stats": [
     {
       "value": 2400,
@@ -29,88 +42,14 @@
       "label": "Years of Service"
     },
     {
-      "value": 4,
-      "suffix": "",
-      "label": "Bookable Venues"
-    },
-    {
       "value": 1000,
       "suffix": "",
-      "label": "Max Guest Capacity"
-    }
-  ],
-  "venues": [
-    {
-      "id": "grand-lawn",
-      "name": "Gopal Grand Lawn",
-      "type": "Open-Air Lawn",
-      "capacity": 1000,
-      "area": "25,000 sq ft",
-      "price": 185000,
-      "description": "Our flagship open-air lawn, framed by old banyan trees and festoon lighting. Built for baraats, fireworks and thousand-guest receptions.",
-      "image": "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=1200&q=85",
-      "amenities": [
-        "Valet parking for 250 cars",
-        "Bridal suite & green rooms",
-        "Power backup (250 KVA)",
-        "In-house catering kitchen",
-        "Fireworks permitted",
-        "Baraat entry driveway"
-      ]
+      "label": "Guest Capacity"
     },
     {
-      "id": "shamiana-pavilion",
-      "name": "Shamiana Pavilion",
-      "type": "Traditional Tented Pavilion",
-      "capacity": 600,
-      "area": "12,000 sq ft",
-      "price": 120000,
-      "description": "A hand-embroidered Rajasthani shamiana with chandeliers and carved wooden pillars — traditional character with modern comfort.",
-      "image": "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=1200&q=85",
-      "amenities": [
-        "Weatherproof canopy",
-        "Air coolers & heaters",
-        "Raised mandap platform",
-        "Dedicated buffet wing",
-        "Ambient uplighting",
-        "Separate service entry"
-      ]
-    },
-    {
-      "id": "radha-banquet",
-      "name": "Radha Banquet Hall",
-      "type": "Air-Conditioned Indoor Hall",
-      "capacity": 400,
-      "area": "8,000 sq ft",
-      "price": 95000,
-      "description": "A fully air-conditioned pillarless hall with a crystal chandelier centrepiece — ideal for receptions, sangeet nights and winter weddings.",
-      "image": "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?w=1200&q=85",
-      "amenities": [
-        "Central air conditioning",
-        "Pillarless floor plan",
-        "LED wall & DJ console",
-        "Attached dining hall",
-        "Basement parking",
-        "Wheelchair accessible"
-      ]
-    },
-    {
-      "id": "vrindavan-terrace",
-      "name": "Vrindavan Terrace",
-      "type": "Rooftop Venue",
-      "capacity": 250,
-      "area": "5,000 sq ft",
-      "price": 65000,
-      "description": "An intimate rooftop under open sky with string lights and a skyline view — perfect for mehendi, haldi and engagement evenings.",
-      "image": "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=1200&q=85",
-      "amenities": [
-        "Open-sky seating",
-        "String & fairy lighting",
-        "Cocktail bar counter",
-        "Lift access",
-        "Live counter space",
-        "Retractable rain cover"
-      ]
+      "value": 25,
+      "suffix": "k",
+      "label": "Sq Ft of Ground"
     }
   ],
   "packages": [
@@ -123,7 +62,7 @@
       "popular": false,
       "description": "A complete engagement or roka setup, handled end to end.",
       "features": [
-        "Venue for one evening slot",
+        "Single evening slot",
         "Floral stage & entrance decor",
         "Round table seating with covers",
         "Vegetarian buffet (8 dishes)",
@@ -140,7 +79,7 @@
       "popular": true,
       "description": "Our most-booked package — the full wedding day, start to finish.",
       "features": [
-        "Venue for full day",
+        "Full day booking",
         "Carved mandap with floral canopy",
         "Baraat welcome with dhol & flowers",
         "Vegetarian buffet (16 dishes) + 3 live counters",
@@ -157,15 +96,15 @@
       "price": 750000,
       "guests": "Up to 1000 guests",
       "popular": false,
-      "description": "Three days of ceremonies across our lawn and pavilion.",
+      "description": "Three days of ceremonies, with a fresh setup for each function.",
       "features": [
-        "Two venues across three days",
+        "Three days, re-themed for each function",
         "Haldi, mehendi, sangeet & wedding setups",
-        "Premium theme decor with imported florals",
+        "Chandelier pavilion with sofa lounges",
         "Multi-cuisine catering + 6 live counters",
         "Fireworks & entry effects",
         "Guest room coordination",
-        "Drone & photography coordination",
+        "Photography & drone coordination",
         "Full-time event crew of 40+"
       ]
     }
@@ -248,10 +187,10 @@
     {
       "id": 1,
       "name": "Anjali & Rohit Sharma",
-      "role": "Wedding, Gopal Grand Lawn",
-      "content": "We had 800 guests and not one thing went wrong. The lawn looked like a palace and the team handled the baraat, the catering and a sudden drizzle without us ever hearing about it.",
+      "role": "Wedding, Gopal Tent House",
+      "content": "We had 800 guests and not one thing went wrong. The whole ground was themed in blue and white exactly as we asked, and the team handled the baraat, the catering and a sudden drizzle without us ever hearing about it.",
       "rating": 5,
-      "image": "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&q=90"
+      "image": ""
     },
     {
       "id": 2,
@@ -259,39 +198,39 @@
       "role": "Mother of the Bride",
       "content": "I have attended weddings at Gopal Tent House for twenty years, so booking my own daughter's was an easy decision. Gopal ji personally checked every arrangement the night before.",
       "rating": 5,
-      "image": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&q=90"
+      "image": ""
     },
     {
       "id": 3,
       "name": "Vikram Singh",
-      "role": "Reception, Radha Banquet Hall",
-      "content": "The hall was spotless, the AC actually worked in May, and the food counters never ran empty. Guests are still talking about the chaat counter.",
+      "role": "Reception",
+      "content": "The chandelier setup looked like a palace at night. The food counters never ran empty and guests are still talking about the chaat counter.",
       "rating": 5,
-      "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&q=90"
+      "image": ""
     }
   ],
   "heroSlides": [
     {
       "id": 1,
-      "image": "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=1920&q=90",
+      "image": "/photos/gold-chandelier-pavilion.jpg",
       "title": "Where Forever",
       "subtitle": "Begins"
     },
     {
       "id": 2,
-      "image": "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=1920&q=90",
-      "title": "Royal Shamianas",
-      "subtitle": "Since 1992"
+      "image": "/photos/blue-mandap-stage.jpg",
+      "title": "Themed Decor",
+      "subtitle": "Built For You"
     },
     {
       "id": 3,
-      "image": "https://images.unsplash.com/photo-1519741497674-611481863552?w=1920&q=90",
-      "title": "Every Ritual",
-      "subtitle": "Perfectly Staged"
+      "image": "/photos/catering-lawn-setup.jpg",
+      "title": "Everything",
+      "subtitle": "Under One Roof"
     },
     {
       "id": 4,
-      "image": "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=1920&q=90",
+      "image": "/photos/monochrome-decor-stage.jpg",
       "title": "Your Date",
       "subtitle": "Our Ground"
     }
@@ -302,33 +241,29 @@
       "name": "Gopal Das Agarwal",
       "role": "Founder & Proprietor",
       "bio": "Started the business in 1992 with one shamiana. Still personally inspects every wedding setup the night before.",
-      "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&q=90",
-      "social": {
-        "instagram": "https://instagram.com/gopaltenthouse"
-      }
+      "image": "",
+      "social": {}
     },
     {
       "id": 2,
       "name": "Sunita Agarwal",
       "role": "Head of Decor",
-      "bio": "Designs every mandap, stage and entrance gate. Trained in floral art in Jaipur.",
-      "image": "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=300&q=90",
-      "social": {
-        "instagram": "https://instagram.com/gopaltenthouse"
-      }
+      "bio": "Designs every mandap, stage and entrance gate, and builds the colour theme that runs through the whole ground.",
+      "image": "",
+      "social": {}
     },
     {
       "id": 3,
       "name": "Chef Ramesh Yadav",
       "role": "Head Chef",
-      "bio": "Runs our pure-vegetarian kitchen and live counters. Twenty years of wedding catering across Braj.",
-      "image": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&q=90",
+      "bio": "Runs our pure-vegetarian kitchen and live counters. Twenty years of wedding catering in Kanpur.",
+      "image": "",
       "social": {}
     }
   ],
   "about": {
     "title": "Three Generations of Weddings",
-    "content": "Gopal Tent House began in 1992 with a single hand-stitched shamiana and a borrowed truck. Today we run four bookable venues, an in-house kitchen and a crew of over forty — but the job has not changed. We put up the tent, we light the ground, and we make sure a family can stand in the middle of their own wedding without worrying about a single thing.",
+    "content": "Gopal Tent House began in 1992 with a single hand-stitched shamiana and a borrowed truck. Today we run a 25,000 sq ft ground, an in-house kitchen and a crew of over forty — but the job has not changed. We put up the tent, we light the ground, and we make sure a family can stand in the middle of their own wedding without worrying about a single thing.",
     "story": "Everything is handled under one roof: the ground, the tent, the decor, the mandap, the food, the lights and the furniture. Families deal with one team and one bill instead of chasing six vendors. That is why most of our bookings still come from someone who attended a wedding here and asked for our number.",
     "values": [
       "One team, one bill, no chasing vendors",

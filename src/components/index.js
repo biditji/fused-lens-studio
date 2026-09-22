@@ -1,6 +1,6 @@
 export { Navigation } from './Navigation'
 export { Hero } from './Hero'
-export { Venues } from './Venues'
+export { Venue } from './Venue'
 export { Gallery } from './Gallery'
 export { Services } from './Services'
 export { Packages } from './Packages'

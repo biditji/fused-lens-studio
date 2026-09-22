@@ -1,5 +1,5 @@
 {
-  "name": "fused-lens-server",
+  "name": "gopal-tent-house-server",
   "version": "1.0.0",
   "type": "module",
   "scripts": {
@@ -15,4 +15,3 @@
     "uuid": "^9.0.1"
   }
 }
-

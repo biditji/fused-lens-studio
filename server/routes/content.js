@@ -46,8 +46,11 @@ router.get('/venue', (req, res) => {
 router.put('/venue', authenticateToken, (req, res) => {
   try {
     const content = readContent()
-    const { name, tagline, description, location, address, email, phone, whatsapp } = req.body
-    
+    const {
+      name, tagline, description, location, address, email, phone, whatsapp,
+      capacity, area, setupTime, amenities
+    } = req.body
+
     content.venue = {
       ...content.venue,
       name: name || content.venue.name,
@@ -57,7 +60,11 @@ router.put('/venue', authenticateToken, (req, res) => {
       address: address || content.venue.address,
       email: email || content.venue.email,
       phone: phone || content.venue.phone,
-      whatsapp: whatsapp || content.venue.whatsapp
+      whatsapp: whatsapp || content.venue.whatsapp,
+      capacity: capacity !== undefined ? Number(capacity) || 0 : content.venue.capacity,
+      area: area || content.venue.area,
+      setupTime: setupTime || content.venue.setupTime,
+      amenities: Array.isArray(amenities) ? amenities : content.venue.amenities
     }
     
     writeContent(content)
@@ -110,27 +117,6 @@ router.put('/hero', authenticateToken, (req, res) => {
     res.json(content.heroSlides)
   } catch (error) {
     res.status(500).json({ error: 'Failed to update hero slides' })
-  }
-})
-
-// Get/Update venues (the bookable spaces)
-router.get('/venues', (req, res) => {
-  try {
-    const content = readContent()
-    res.json(content.venues || [])
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to load venues' })
-  }
-})
-
-router.put('/venues', authenticateToken, (req, res) => {
-  try {
-    const content = readContent()
-    content.venues = req.body.venues
-    writeContent(content)
-    res.json(content.venues)
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to update venues' })
   }
 })
 

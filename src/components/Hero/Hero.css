@@ -344,3 +344,17 @@
     text-align: center;
   }
 }
+
+/* Narrow phones: the phone-number CTA is wide once uppercased and letter-spaced,
+   so give each button the full column instead of letting it overflow. */
+@media (max-width: 480px) {
+  .hero__actions {
+    width: 100%;
+  }
+
+  .hero__btn {
+    width: 100%;
+    padding: 1rem 1.25rem;
+    letter-spacing: 0.1em;
+  }
+}

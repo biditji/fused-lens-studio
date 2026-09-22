@@ -13,7 +13,7 @@
 
 @media (min-width: 1024px) {
   .about__layout {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: var(--space-3xl);
   }
 }
@@ -111,7 +111,7 @@
 /* Stats */
 .about__stats {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--space-lg);
   margin-top: var(--space-xl);
   padding-top: var(--space-xl);
@@ -120,7 +120,7 @@
 
 @media (min-width: 600px) {
   .about__stats {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
 

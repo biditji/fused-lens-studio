@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { venueInfo, venues, eventTypes, timeSlots } from '../../data/content'
+import { eventTypes, timeSlots } from '../../data/content'
+import { useVenueInfo, useVenue } from '../../context/VenueContext'
 import './Booking.css'
 
 // Bookings are confirmed over the phone — this form only requests a callback.
@@ -10,7 +11,6 @@ const EMPTY_FORM = {
   email: '',
   eventDate: '',
   eventType: '',
-  venueId: '',
   timeSlot: '',
   guests: '',
   message: ''
@@ -36,6 +36,8 @@ const VisitIcon = () => (
 )
 
 export function Booking() {
+  const venueInfo = useVenueInfo()
+  const venue = useVenue()
   const [formData, setFormData] = useState(EMPTY_FORM)
   const [errors, setErrors] = useState({})
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -43,8 +45,6 @@ export function Booking() {
 
   // Stop the date picker offering dates in the past.
   const today = useMemo(() => new Date().toISOString().split('T')[0], [])
-
-  const selectedVenue = venues.find(v => v.id === formData.venueId)
 
   const validate = () => {
     const next = {}
@@ -274,7 +274,7 @@ export function Booking() {
                         type="tel"
                         value={formData.phone}
                         onChange={handleChange}
-                        placeholder="e.g. 98765 43210"
+                        placeholder="e.g. 90263 23680"
                       />
                       {errors.phone && <span className="booking__error">{errors.phone}</span>}
                     </div>
@@ -325,23 +325,6 @@ export function Booking() {
 
                   <div className="booking__row">
                     <div className="booking__field">
-                      <label htmlFor="bk-venue">Preferred venue</label>
-                      <select
-                        id="bk-venue"
-                        name="venueId"
-                        value={formData.venueId}
-                        onChange={handleChange}
-                      >
-                        <option value="">No preference</option>
-                        {venues.map(venue => (
-                          <option key={venue.id} value={venue.id}>
-                            {venue.name} · up to {venue.capacity}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-
-                    <div className="booking__field">
                       <label htmlFor="bk-slot">Time slot</label>
                       <select
                         id="bk-slot"
@@ -357,27 +340,23 @@ export function Booking() {
                         ))}
                       </select>
                     </div>
-                  </div>
 
-                  <div className={`booking__field ${errors.guests ? 'booking__field--error' : ''}`}>
-                    <label htmlFor="bk-guests">
-                      Expected guests
-                      {selectedVenue && (
-                        <span className="booking__hint">
-                          {selectedVenue.name} seats up to {selectedVenue.capacity}
-                        </span>
-                      )}
-                    </label>
-                    <input
-                      id="bk-guests"
-                      name="guests"
-                      type="number"
-                      min="1"
-                      value={formData.guests}
-                      onChange={handleChange}
-                      placeholder="e.g. 450"
-                    />
-                    {errors.guests && <span className="booking__error">{errors.guests}</span>}
+                    <div className={`booking__field ${errors.guests ? 'booking__field--error' : ''}`}>
+                      <label htmlFor="bk-guests">
+                        Expected guests
+                        <span className="booking__hint">up to {venue.capacity}</span>
+                      </label>
+                      <input
+                        id="bk-guests"
+                        name="guests"
+                        type="number"
+                        min="1"
+                        value={formData.guests}
+                        onChange={handleChange}
+                        placeholder="e.g. 450"
+                      />
+                      {errors.guests && <span className="booking__error">{errors.guests}</span>}
+                    </div>
                   </div>
 
                   <div className="booking__field">

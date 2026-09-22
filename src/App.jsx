@@ -5,7 +5,7 @@ import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
 import {
   Navigation,
   Hero,
-  Venues,
+  Venue,
   Gallery,
   Services,
   Packages,
@@ -16,6 +16,7 @@ import {
   FloatingParticles,
   CursorGlow
 } from './components'
+import { VenueProvider } from './context/VenueContext'
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin)
@@ -47,6 +48,7 @@ function App() {
   }, [])
 
   return (
+    <VenueProvider>
     <div className="app">
       {/* Global Effects */}
       <FloatingParticles count={25} />
@@ -56,7 +58,7 @@ function App() {
       
       <main>
         <Hero />
-        <Venues />
+        <Venue />
         <Gallery />
         <Services />
         <Packages />
@@ -67,6 +69,7 @@ function App() {
       
       <Footer />
     </div>
+    </VenueProvider>
   )
 }
 

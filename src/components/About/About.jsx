@@ -3,13 +3,15 @@ import { motion } from 'framer-motion'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { aboutImage } from '../../data/images'
-import { venueInfo, timeline, stats } from '../../data/content'
+import { timeline, stats } from '../../data/content'
+import { useVenueInfo } from '../../context/VenueContext'
 import { AnimatedCounter } from '../Effects'
 import './About.css'
 
 gsap.registerPlugin(ScrollTrigger)
 
 export function About() {
+  const venueInfo = useVenueInfo()
   const [about, setAbout] = useState(null)
   const sectionRef = useRef(null)
   const imageRef = useRef(null)

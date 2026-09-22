@@ -2,7 +2,8 @@ import { useState, useRef, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { packages as fallbackPackages, venueInfo } from '../../data/content'
+import { packages as fallbackPackages } from '../../data/content'
+import { useVenueInfo } from '../../context/VenueContext'
 import './Packages.css'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -15,6 +16,7 @@ const formatPrice = (value) =>
   }).format(value)
 
 export function Packages() {
+  const venueInfo = useVenueInfo()
   const [packages, setPackages] = useState(fallbackPackages)
   const sectionRef = useRef(null)
   const cardRefs = useRef([])

@@ -116,14 +116,14 @@ export function Hero() {
           animate={{ opacity: isLoaded ? 1 : 0 }}
           transition={{ duration: 1, delay: 0.5 }}
         >
-          {/* Studio Name */}
+          {/* Venue Name */}
           {/* <motion.div
-            className="hero__studio-name"
+            className="hero__venue-name"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
           >
-            <span className="hero__studio-icon">◈</span>
+            <span className="hero__venue-icon">◈</span>
             {venueInfo.name}
           </motion.div> */}
 
@@ -214,7 +214,7 @@ export function Hero() {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 2, duration: 0.8 }}
-          onClick={() => scrollTo('venues')}
+          onClick={() => scrollTo('venue')}
         >
           <span className="hero__scroll-text">Scroll</span>
           <motion.div

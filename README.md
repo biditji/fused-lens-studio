@@ -1,177 +1,136 @@
-# Fused Lens Studio - Photography Portfolio Website
+# Gopal Tent House
 
-A high-performance, minimalist photography studio website with premium Apple-style design, built using React, Framer Motion, and GSAP. Features a complete admin panel for content management.
+Website for **Gopal Tent House**, a wedding venue and tent house in Kanpur, Uttar Pradesh.
 
-![Fused Lens Studio](https://images.unsplash.com/photo-1537633552985-df8429e8048b?w=1200&q=80)
+Bookings are **confirmed over the phone**, not online. The site is built around that: every
+section pushes the visitor toward calling or WhatsApping, and the booking form only sends a
+callback request that the owner follows up on.
 
-## ✨ Features
-
-### 🎬 Hero Section
-- Full-screen image slider with Ken Burns zoom effect
-- Letter-by-letter animated tagline reveal with glow
-- Subtle parallax scrolling
-- Decorative corner elements
-- Auto-advancing with manual navigation
-
-### 🖼️ Portfolio
-- Responsive masonry grid layout
-- Scroll-triggered staggered animations
-- Interactive hover previews with 3D tilt effect
-- Dynamic category filtering (Wedding, Portrait, Commercial, Events)
-- Full-screen lightbox with swipe gestures on mobile
-
-### 👤 About
-- Side-by-side image and text layout
-- Parallax scroll effect on image
-- Animated statistics counters (750+ projects, 500+ clients, etc.)
-- Interactive timeline with milestone animations
-
-### 💼 Services
-- Interactive flip cards with hover animation
-- Animated service icons
-- Auto-rotating testimonials carousel
-
-### 📧 Contact
-- Animated map with bouncing pin
-- Floating label inputs with underline glow
-- WhatsApp integration & click-to-call buttons
-- Success/error animations
-- Social media links with hover effects
-
-### 🧭 Navigation
-- Sticky navbar with dynamic color change
-- Scroll progress bar
-- Smooth anchor scrolling
-- Mobile hamburger menu with circular reveal
-- Cursor glow effect on interactive elements
-
-### ✨ Visual Effects
-- Floating particles in background
-- Custom cursor glow that follows mouse
-- Shimmer line animations
-- Micro-interactions throughout
-
-### 🔐 Admin Panel
-- Protected login (default: admin / admin123)
-- Studio info management
-- Social links editor
-- Hero slides configuration
-- Photo gallery management
-- Services editor
-
-## 🚀 Getting Started
-
-### Prerequisites
-- Node.js 18+ 
-- npm or yarn
-
-### Installation
-
-```bash
-# Install all dependencies (frontend + backend)
-npm run setup
-
-# Start development (frontend only)
-npm run dev
-
-# Start backend server (in separate terminal)
-npm run dev:server
-
-# Or start both together
-npm run dev:all
-
-# Build for production
-npm run build
-```
-
-### Default Credentials
-- **Admin Panel**: http://localhost:3000/admin.html
-- **Username**: admin
-- **Password**: admin123
-
-## 🛠️ Tech Stack
-
-### Frontend
-- **React 18** - UI library
-- **Vite** - Build tool & dev server
-- **Framer Motion** - React animations
-- **GSAP** - Advanced scroll animations
-
-### Backend
-- **Express.js** - API server
-- **JWT** - Authentication
-- **Multer** - File uploads
-- **JSON files** - Data storage (easily replaceable with MongoDB)
-
-## 📁 Project Structure
-
-```
-├── src/
-│   ├── components/
-│   │   ├── Navigation/     # Sticky nav with scroll progress
-│   │   ├── Hero/           # Ken Burns slider
-│   │   ├── Portfolio/      # Masonry grid & lightbox
-│   │   ├── About/          # Parallax & timeline
-│   │   ├── Services/       # Flip cards & testimonials
-│   │   ├── Contact/        # Form & WhatsApp buttons
-│   │   ├── Footer/         # Site footer
-│   │   └── Effects/        # Particles, cursor, shimmer
-│   ├── hooks/              # Custom React hooks
-│   ├── data/               # Content & image data
-│   ├── admin/              # Admin panel components
-│   └── styles/             # Global styles
-├── server/
-│   ├── routes/             # API routes
-│   ├── middleware/         # Auth middleware
-│   ├── data/               # JSON data files
-│   └── uploads/            # Uploaded images
-└── public/                 # Static assets
-```
-
-## 🎨 Design System
-
-### Colors
-- **Primary**: Charcoal (#1a1a1a)
-- **Accent**: Champagne Gold (#c9a962)
-- **Background**: Off-white (#fafafa)
-- **Cream**: (#f5f3f0)
-
-### Typography
-- **Display**: Cormorant Garamond
-- **Body**: Outfit
-
-### Animations
-- Smooth easing: `cubic-bezier(0.16, 1, 0.3, 1)`
-- Ken Burns: 8s duration
-- Staggered reveals
-- Parallax scrolling
-- Cursor tracking
-
-## 📱 Responsive Design
-
-- Mobile-first approach
-- Breakpoints: 480px, 768px, 1024px, 1200px
-- Touch-friendly interactions
-- Swipe gestures on mobile lightbox
-
-## 🔌 API Endpoints
-
-### Public
-- `GET /api/content` - All content
-- `GET /api/photos` - All photos
-- `GET /api/photos/category/:id` - Photos by category
-
-### Protected (requires JWT)
-- `PUT /api/content/studio` - Update studio info
-- `PUT /api/content/social` - Update social links
-- `PUT /api/content/hero` - Update hero slides
-- `POST /api/photos` - Add photo
-- `DELETE /api/photos/:id` - Delete photo
-
-## 📄 License
-
-MIT License - feel free to use for personal or commercial projects.
+- **Public site** — React + Vite (`index.html`)
+- **Admin panel** — same app, separate entry (`admin.html`)
+- **API** — Express with JSON files on disk (`server/`)
 
 ---
 
-**Fused Lens Studio** - *Timeless Memories*
+## Running it
+
+```bash
+npm run setup      # installs both frontend and server dependencies
+npm run dev:all    # frontend on :3000, API on :3001
+```
+
+Or run the two halves separately:
+
+```bash
+npm run dev         # frontend only  → http://localhost:3000
+npm run dev:server  # API only       → http://localhost:3001
+```
+
+The Vite dev server proxies `/api` and `/uploads` to the API, so the frontend always calls
+relative paths. To point it somewhere else, set `VITE_API_TARGET`.
+
+| URL | What it is |
+| --- | --- |
+| `http://localhost:3000` | The public site |
+| `http://localhost:3000/admin.html` | Admin panel |
+| `http://localhost:3001/api/health` | API health check |
+
+**Default admin login is `admin` / `admin123` — change it before going live** (Admin panel →
+it writes a bcrypt hash to `server/data/admin.json`).
+
+---
+
+## Page structure
+
+| Section | Purpose |
+| --- | --- |
+| Hero | Rotating photos, "Check Your Date" and a tap-to-call button |
+| Venue | The ground — capacity, area, amenities, and the setup styles |
+| Gallery | Filterable photos with a lightbox |
+| Services | Tent, decor, mandap, catering, lighting, furniture |
+| Packages | Sagai / Vivah / Maharaja pricing tiers |
+| About | History, milestones, stats |
+| Booking | Call + WhatsApp CTAs, and the callback request form |
+| Contact | Map, contact details, general enquiry form |
+
+---
+
+## How booking works
+
+There is no self-serve calendar. The flow is:
+
+1. Visitor submits the Booking form → `POST /api/enquiries` (public, no auth).
+2. The enquiry lands in `server/data/enquiries.json` with status `new`.
+3. Admin panel → **Enquiries** shows it, with a badge in the sidebar for unanswered ones.
+4. The owner calls the family (Call / WhatsApp buttons are on each enquiry), then sets the
+   status to `contacted`, `confirmed` or `declined` and saves internal notes.
+
+Submitting the form does **not** reserve a date — the form says so explicitly.
+
+---
+
+## Editing content
+
+Almost everything is editable from the admin panel without touching code:
+
+| Tab | Edits |
+| --- | --- |
+| Overview | New enquiries, upcoming confirmed bookings |
+| Enquiries | Booking enquiries and their status |
+| Packages | Pricing tiers and what's included |
+| Venue Info | Name, phone, WhatsApp, address, capacity, area, amenities |
+| Hero / About / Services / Reviews / Team / Gallery | Their respective sections |
+| Social Links / Contact Info | Contact and social details |
+| Messages / Comments | Contact-form submissions and photo comments |
+
+Values edited here are served from `server/data/content.json` and override the build-time
+defaults in `src/data/content.js` (see `src/context/VenueContext.jsx`). If the API is
+unreachable the site still renders using those bundled defaults.
+
+### Photos
+
+Venue photographs live in `public/photos/` and are referenced by path (`/photos/<name>.jpg`).
+Gallery entries can also be managed from the admin panel, which uploads to `server/uploads/`.
+
+---
+
+## Still to replace
+
+- **Street address** — currently just "Kanpur, Uttar Pradesh". Add the full address in
+  Admin → Venue Info, and update the map embed in `src/components/Contact/Contact.jsx`.
+- **Email** — `bookings@gopaltenthouse.com` is a placeholder.
+- **Social links** — all point at `gopaltenthouse` handles that may not exist.
+- **Package prices** — starting prices are illustrative.
+- **Testimonials and team** — names and quotes are placeholders.
+
+The phone number (`+91 90263 23680`), the city, and the photographs are real.
+
+---
+
+## Data files
+
+JSON on disk, no database:
+
+```
+server/data/
+  admin.json       # admin username + bcrypt password hash
+  content.json     # venue info, packages, services, reviews, team, about, hero
+  photos.json      # gallery photos and categories
+  enquiries.json   # booking enquiries
+  contacts.json    # contact-form messages
+  comments.json    # photo comments
+```
+
+Back these up before deploying over them — they hold live enquiries.
+
+---
+
+## Production notes
+
+- `npm run build` outputs `dist/` (both `index.html` and `admin.html`).
+- The built app calls relative `/api`, so put the API behind the same origin with a reverse
+  proxy, or set `VITE_API_URL` at build time for the admin panel.
+- Set `JWT_SECRET` in the server environment — it falls back to a hardcoded development
+  secret otherwise.
+- `admin.html` is marked `noindex`, but it is not otherwise hidden. Restrict it at the
+  proxy if you want it off the public internet.

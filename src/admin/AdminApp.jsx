@@ -1014,7 +1014,7 @@ function PhotosEditor({ data, onSave, saving }) {
       <div className="admin-section__header">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div>
-            <h2>Portfolio Photos</h2>
+            <h2>Gallery Photos</h2>
             <p>Add photos by pasting Google Drive links or direct image URLs</p>
           </div>
           <button type="button" className="admin-btn admin-btn--secondary" onClick={addPhoto}>
@@ -1619,7 +1619,7 @@ function CommentsManager({ data, onApprove, onDelete }) {
       <div className="admin-section__header">
         <div>
           <h2>Photo Comments</h2>
-          <p>Manage comments on portfolio photos</p>
+          <p>Manage comments left on gallery photos</p>
         </div>
       </div>
       <div className="admin-comments">
@@ -1841,7 +1841,7 @@ function Dashboard({ token, onLogout }) {
     { id: 'overview', label: 'Overview', icon: '📊' },
     { id: 'enquiries', label: 'Enquiries', icon: '📅', badge: newEnquiryCount },
     { id: 'packages', label: 'Packages', icon: '💐' },
-    { id: 'studio', label: 'Venue Info', icon: '🏠' },
+    { id: 'venue-info', label: 'Venue Info', icon: '🏠' },
     { id: 'hero', label: 'Hero Section', icon: '🎬' },
     { id: 'about', label: 'About Page', icon: '📖' },
     { id: 'services', label: 'Services', icon: '💼' },
@@ -1937,7 +1937,7 @@ function Dashboard({ token, onLogout }) {
           )}
 
           {/* Venue Info Tab */}
-          {activeTab === 'studio' && data.content && (
+          {activeTab === 'venue-info' && data.content && (
             <VenueEditor
               data={data.content.venue}
               onSave={(venueData) => saveSection('Venue Info', '/content/venue', venueData)}

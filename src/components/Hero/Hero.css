@@ -67,8 +67,8 @@
   max-width: 800px;
 }
 
-/* Studio Name */
-.hero__studio-name {
+/* Venue Name */
+.hero__venue-name {
   display: inline-flex;
   align-items: center;
   gap: var(--space-sm);
@@ -81,7 +81,7 @@
   margin-bottom: var(--space-lg);
 }
 
-.hero__studio-icon {
+.hero__venue-icon {
   color: var(--color-accent);
   font-size: 1.25rem;
 }
